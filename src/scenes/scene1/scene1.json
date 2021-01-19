@@ -1,0 +1,59 @@
+{
+    "ready": true,
+    "components": {
+        "display": {
+            "bgcolor": "#FFFFFF"
+        },
+        "mouse": {
+            "enabled": true,
+            "shareable": true,
+            "actions": [
+                "pointerdown"
+            ]
+        },
+        "event": {
+            "onInit": "onInit",
+            "onActivate": "onActivate",
+            "onPointerdown": "onPointerdown"
+        },
+        "vnt": {
+            "bg": "",
+            "bgm": "",
+            "dialog": "dialog-box1",
+            "flags": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    },
+    "script": true,
+    "preload": {
+        "musics": [
+            "easy-lemon.mp3"
+        ],
+        "sounds": [
+            "v-01.wav",
+            "v-02.wav"
+        ],
+        "jsons": []
+    },
+    "scenes": [
+        "vnt-info",
+        "vnt-dialog"
+    ],
+    "systems": [
+        "motion",
+        "vnt"
+    ],
+    "sprites": [
+        "bg1",
+        "bg2",
+        "miki1",
+        "miki2",
+        "first-meet",
+        "meet-again"
+    ]
+}

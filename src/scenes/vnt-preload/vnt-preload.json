@@ -1,0 +1,27 @@
+{
+    "components":
+    {
+        "display":
+        {
+            "bgcolor": "#000000"
+        },
+
+        "mouse":
+        {
+            "enabled": true,
+            "actions": ["pointerdown"]
+        },
+
+        "event":
+        {
+            "onInit": "onInit",
+            "onUpdate": "onUpdate",
+            "onActivate": "onActivate"
+        }
+    },
+
+    "script": true,
+
+    "sprites": ["bar1", "progress1", "label1", "number1", "button1", "label2"]
+	
+}

@@ -1,0 +1,21 @@
+{
+    "active": false,
+    "script": false,
+	"template": "vnt-text",
+	"count": 8,
+
+    "components":
+    {
+        "text":
+        {
+            "content": "???"
+        },
+
+        "display":
+        {
+            "parent": "dialog-box1",
+            "x": 35,
+            "y": 20
+        }
+    }
+}

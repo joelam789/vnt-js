@@ -1,0 +1,4 @@
+{
+    "script": false,
+    "sprites": ["dialog-box1","dialog-speaker1","dialog-text1","dialog-cursor1", "answer-box1","answer-text1","answer-cursor1"]
+}

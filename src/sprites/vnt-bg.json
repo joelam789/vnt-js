@@ -1,0 +1,29 @@
+{
+	"active": true,
+    "script": false,
+
+    "components":
+    {
+        "graphic":
+        {
+            "image": "bg"
+        },
+
+        "display":
+        {
+            "x": 0,
+            "y": 0,
+			
+			"layer": "bg",
+            "visible": true,
+            
+            "anchor":
+            {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    }
+
+    
+}

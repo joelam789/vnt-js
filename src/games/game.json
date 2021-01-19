@@ -1,0 +1,50 @@
+{
+    "components": {
+        "display": {
+            "move": "smooth",
+            "scale": "smooth",
+            "layers": [
+                "bg",
+                "map",
+                "img",
+                "obj",
+                "ui",
+                "txt"
+            ],
+            "width": 640,
+            "height": 480
+        },
+        "event": {
+            "onInit": "onInit"
+        },
+        "vnt": {
+            "controllable": true,
+            "flags": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    },
+    "script": true,
+    "basics": [
+        "display",
+        "tween",
+        "transition",
+        "mouse",
+        "keyboard",
+        "gamepad",
+        "event",
+        "vnt"
+    ],
+    "name": "game",
+    "scenes": [
+        "vnt-info",
+        "vnt-dialog",
+        "vnt-list",
+        "scene1"
+    ],
+    "first": "scene1"
+}

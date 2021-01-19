@@ -1,0 +1,21 @@
+{
+	"active": true,
+	"script": false,
+	"template": "vnt-label",
+
+	"components":
+	{
+		"display":
+		{
+			"layer": "ui",
+			
+			"x": 500,
+			"y": 150
+		},
+
+		"text":
+		{
+			"content": "0"
+		}
+	}
+}

@@ -1,0 +1,18 @@
+{
+    "active": false,
+    "script": false,
+    "template": "vnt-img",
+    "components": {
+        "graphic": {
+            "image": "Miki_Casual_PoseD_Smile.png"
+        },
+        "display": {
+            "x": 320,
+            "y": 240,
+            "scale": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    }
+}

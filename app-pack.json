@@ -1,0 +1,118 @@
+{
+	"inputDir": "dist",
+	"outputDir": "dist",
+
+	"encryption": false,
+
+	"cleanup": true,
+
+	"packs": {
+
+		"pack1":
+		[
+			"json/scenes/preload/preload.json",
+			"json/scenes/preload/sprites/bar1.json",
+			"json/scenes/preload/sprites/label1.json",
+			"json/scenes/preload/sprites/label2.json",
+			"json/scenes/preload/sprites/number1.json",
+			"json/scenes/preload/sprites/button1.json",
+			"json/scenes/preload/sprites/progress1.json",
+			
+			"json/sprites/bar.json",
+			"json/sprites/label.json"
+		],
+
+		"pack2":
+		[
+			"audio/musics/rpg-map.m4a",
+
+			"img/battle_bg.png",
+			"img/dragons.png",
+			"img/effects.png",
+			"img/faces.png",
+			"img/fighter-01.png",
+			"img/fighter-02.png",
+			"img/fighter-03.png",
+			"img/npc-01.png",
+			"img/npc-02.png",
+			"img/npc-03.png",
+			"img/player-01.png",
+			"img/ui-01.png",
+
+			"json/sprites/bg.json",
+			"json/sprites/boy.json",
+			"json/sprites/effect.json",
+			"json/sprites/enemy.json",
+			"json/sprites/fighter.json",
+			"json/sprites/fps.json",
+			"json/sprites/icon-triangle.json",
+			"json/sprites/npc.json",
+			"json/sprites/panel.json",
+			"json/sprites/player.json",
+			"json/sprites/plot.json",
+			"json/sprites/text.json",
+			"json/tilemaps/map1.json",
+			"json/tilesets/base1.json",
+			"json/tilesets/grass1.json"
+
+		],
+
+		"pack3":
+		[
+			"audio/musics/rpg-battle.m4a",
+
+			"audio/sounds/enemy-cry.ogg",
+			"audio/sounds/menu-popup.ogg",
+			"audio/sounds/menu-select.mp3",
+			"audio/sounds/move-cursor.mp3",
+			"audio/sounds/rpg-fight1.mp3",
+			"audio/sounds/rpg-fight2.ogg",
+			"audio/sounds/rpg-fight3.mp3",
+			"audio/sounds/rpg-win1.m4a",
+			"audio/sounds/rpg-win2.m4a",
+
+			"img/tilesets/pipo_base_small.png",
+			"img/tilesets/pipo_grass.png",
+
+			"json/scenes/battle1/battle1.json",
+			"json/scenes/battle1/sprites/bg1.json",
+			"json/scenes/battle1/sprites/effect1.json",
+			"json/scenes/battle1/sprites/enemy1.json",
+			"json/scenes/battle1/sprites/fighter1.json",
+			"json/scenes/battle1/sprites/num1.json",
+			"json/scenes/battle1/sprites/plot-enemy-fight.json",
+			"json/scenes/battle1/sprites/plot-fight.json",
+			"json/scenes/battle1/sprites/plot-menu.json",
+			"json/scenes/battle1/sprites/plot-select-enemy.json",
+			"json/scenes/battle1/sprites/plot-win.json",
+			"json/scenes/dialog/dialog.json",
+			"json/scenes/dialog/sprites/answer-box1.json",
+			"json/scenes/dialog/sprites/answer-icon1.json",
+			"json/scenes/dialog/sprites/answer-msg1.json",
+			"json/scenes/dialog/sprites/dialog-box1.json",
+			"json/scenes/dialog/sprites/dialog-icon1.json",
+			"json/scenes/dialog/sprites/dialog-msg1.json",
+			"json/scenes/info/info.json",
+			"json/scenes/info/sprites/fps1.json",
+			"json/scenes/list/list.json",
+			"json/scenes/list/sprites/list-box1.json",
+			"json/scenes/list/sprites/list-cursor1.json",
+			"json/scenes/list/sprites/list-item1.json",
+			"json/scenes/list/sprites/list-label1.json",
+			"json/scenes/map1/map1.json",
+			"json/scenes/map1/sprites/npc1.json",
+			"json/scenes/map1/sprites/npc2.json",
+			"json/scenes/map1/sprites/npc3.json",
+			"json/scenes/map1/sprites/player1.json",
+			"json/scenes/map1/sprites/plot1.json",
+			"json/scenes/map1/sprites/plot2.json",
+			"json/scenes/map1/sprites/plot3.json",
+			"json/scenes/map1/sprites/plot4.json",
+			"json/scenes/map1/sprites/plot5.json"
+
+			
+		]
+
+	}
+
+}

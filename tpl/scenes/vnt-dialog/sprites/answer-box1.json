@@ -1,0 +1,30 @@
+{
+    "active": false,
+    "script": true,
+	"template": "vnt-panel",
+	"count": 8,
+
+    "components":
+    {
+        "display":
+        {
+            "x": 100,
+            "y": 100,
+            "width": 350,
+            "height": 60
+        },
+		
+		"mouse":
+		{
+			"enabled": true,
+			"shareable": false,
+			"actions": ["pointerdown", "pointerup"]
+		},
+
+		"event":
+		{
+            "onPointerdown": "onPointerdown",
+            "onPointerup": "onPointerup"
+		}
+    }
+}

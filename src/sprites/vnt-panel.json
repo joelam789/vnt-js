@@ -1,0 +1,43 @@
+{
+    "script": true,
+
+    "components":
+    {
+        "graphic":
+        {
+            "slice": [30, 30, 30, 30],
+            "area":
+            {
+                "x": 0,
+                "y": 0,
+                "width": 64,
+                "height": 64
+            }
+        },
+
+        "display":
+        {
+            "x": 10,
+            "y": 10,
+            "width": 256,
+            "height": 128,
+			
+			"layer": "ui",
+			"visible": true
+        },
+
+        "mouse":
+        {
+            "enabled": true,
+            "shareable": false,
+            "actions": ["pointerdown"]
+        },
+
+        "event":
+        {
+            "onPointerdown": "onPointerdown"
+        }
+    }
+
+    
+}

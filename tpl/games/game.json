@@ -1,0 +1,20 @@
+{
+	"components":
+	{
+		"display":
+		{
+			"move": "smooth",
+			"scale": "smooth",
+			"layers": ["bg", "map", "img", "obj", "ui", "txt"]
+		},
+
+		"event":
+		{
+			"onInit": "onInit"
+		}
+	},
+
+	"script": true,
+	
+	"basics": ["display", "tween", "transition", "mouse", "keyboard", "gamepad", "event", "vnt"]
+}

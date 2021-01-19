@@ -1,0 +1,21 @@
+{
+	"active": false,
+	"script": false,
+	"template": "vnt-label",
+
+	"components":
+	{
+		"display":
+		{
+			"layer": "txt",
+			
+			"x": 250,
+			"y": 260
+		},
+
+		"text":
+		{
+			"content": "Click me to continue"
+		}
+	}
+}

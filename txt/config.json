@@ -1,0 +1,75 @@
+{
+	"game":
+	{
+		"name": "game",
+
+		"components":
+		{
+			"display":
+			{
+				"width": 640,
+				"height": 480
+			},
+
+			"vnt":
+			{        
+				"controllable": true,
+				"flags": [0, 0, 0, 0, 0]
+			}
+		},
+
+		"script": true,
+
+		"scenes": ["vnt-info", "vnt-dialog", "vnt-list", "scene1"],
+		"first": "scene1"
+	},
+
+	"scene":
+	{
+		"ready": true,
+
+		"components":
+		{
+			"display":
+			{
+				"bgcolor": "#FFFFFF"
+			},
+
+			"mouse":
+			{
+				"enabled": true,
+				"shareable": true,
+				"actions": ["pointerdown"]
+			},
+
+			"event":
+			{
+				"onInit": "onInit",
+				"onActivate": "onActivate",
+				"onPointerdown": "onPointerdown"
+			},
+
+			"vnt":
+			{
+				"bg": "",
+				"bgm": "",
+				"dialog": "dialog-box1",
+				"flags": [0, 0, 0, 0, 0]
+			}
+		},
+
+		"script": true,
+
+		"preload": 
+		{
+			"musics": [],
+			"sounds": [],
+			"jsons":  []
+		},
+
+		"scenes": ["vnt-info", "vnt-dialog"],
+		"systems": ["motion", "vnt"],
+		"sprites": []
+	}
+	
+}
