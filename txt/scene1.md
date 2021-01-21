@@ -19,6 +19,9 @@ bgm1 = easy-lemon.mp3
 v1 = v-01.wav
 v2 = v-02.wav
 
+## macro
+show-miki = # show-img miki1 160 520 from-left-right 60 400
+
 ### plot first-meet
 
 # show-bg bg1
@@ -38,7 +41,8 @@ let's start ...
 <!-- show the npc image from right side -->
 [//]: # (# show-img miki1 480 320 from-left-right 820 200)
 <!-- show the npc image from left side -->
-# show-img miki1 160 320 from-left-right -190 300
+[//]: # (# show-img miki1 160 320 from-left-right -190 300)
+# run-macro show-miki
 
 c1
 "Hello~"
@@ -56,7 +60,7 @@ c2
 "That's great to hear."
 # stop-voice
 
-# hide-img miki1 to-left-right -190 300
+# hide-img miki1 to-left-right 60 400
 
 ?
 So it's the end ... ?
@@ -70,7 +74,7 @@ Or still needs something more ... ?
 
 # show-bg bg2
 
-# show-img miki1 160 320 from-left-right -190 300
+# run-macro show-miki
 
 c1
 你周末打算干什么去？
@@ -84,12 +88,31 @@ c1
 我和你不一样，我就是听听音乐，或者看看书。你喜欢看书吗？
 
 c2
-"我也看，当时看的比较少。"
+我也看，只是看的不多。
 
-# hide-img miki2 to-left-right -190 300
+c1
+那你平时喜欢看哪些书呢？
+
+c2
+一些武侠小说呀，比如
+《射雕英雄传》、《神雕侠侣》、
+《书剑恩仇录》、《笑傲江湖》、
+《七剑下天山》、《白发魔女传》。。。
+还有一些科幻小说，比如
+《八十天环游世界》、《时间机器》、
+《科学怪人》、《太空漫游2001》、
+《指环王》、《哈利波特》...... 等等
+
+c1
+那你读的书还真不少哟！
+
+c2
+嘿嘿，算半个小说迷吧
+
+# hide-img miki2 to-left-right 60 400
 
 ?
-好了，就先这样吧。。。
+那。。。不如今天就先这样。。。？！
 
 (loop)
 

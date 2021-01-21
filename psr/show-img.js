@@ -31,11 +31,11 @@ exports.parse = function (content, ctx) {
             if (param3 && param3 == 'from-left-right') {
                 let startX = param4 && !isNaN(param4) ? param4 : '-200';
                 let duration = param5 && !isNaN(param5) ? param5 : '1000';
-                code += 'newImg.get("display").object.alpha = 1.0;';
+                code += 'newImg.get("display").object.alpha = 0.0;';
                 code += 'newImg.get("display").object.x = ' + startX + ';';
                 code += 'newImg.get("display").object.y = ' + param2 + ';';
                 code += 'tween.get(newImg.get("display").object)';
-                code += '.to({x: ' + param1 + '}, ' + duration + ').call(() => sprite.plot.signal());';
+                code += '.to({x: ' + param1 + ', alpha: 1.0}, ' + duration + ').call(() => sprite.plot.signal());';
                 code += "yield sprite.plot.wait();"
 
             } else { // no effect

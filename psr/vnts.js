@@ -54,13 +54,55 @@ exports.genDialogScript = function(lines, ctx, callback) {
             if (lines[i].startsWith('# ')) cmds.push(lines[i]);
             else words.push(lines[i]);
         }
+
         if (callback) for (let line of cmds) ctx = callback(line, ctx);
-        script += 'dialog.open(sprite, "' + npc + '", [';
-        for (let line of words) script += '"' + line.replaceAll('"', '\\"') + '",';
-        script += "]);yield sprite.plot.wait();"
+
+        //script += 'dialog.open(sprite, "' + npc + '", [';
+        //for (let line of words) script += '"' + line.replaceAll('"', '\\"') + '",';
+        //script += "]);yield sprite.plot.wait();"
+        while (words.length > 0) {
+            script += 'dialog.open(sprite, "' + npc + '", [';
+            script += '"' + words.shift().replaceAll('"', '\\"') + '",';
+            if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
+            if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
+            if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
+            script += "]);yield sprite.plot.wait();"
+        }
+        
         ctx.script += script;
     }
     return ctx;
+}
+
+exports.processCommandLine = function (line, context) {
+    //console.log("line", line);
+    let parts = line.split(' ');
+    if (parts.length <= 1) return context;
+    context.command = parts[1].trim();
+    let parser = context.parsers ? context.parsers.get(context.command) : null;
+    if (!parser) {
+        console.warn("command parser not found:", context.command);
+        return context;
+    } else {
+        return parser.parse(line, context);
+    }
+    return context;
+}
+
+exports.processCommandSection = function (lines, context) {
+    //console.log("lines", lines);
+    let parts = lines[0].split(' ');
+    if (parts.length <= 1) return context;
+    context.section = parts[1].trim();
+    context.command = parts[1].trim();
+    let parser = context.parsers ? context.parsers.get(context.section) : null;
+    if (!parser) {
+        console.warn("command parser not found:", context.section);
+        return context;
+    } else {
+        return parser.parse(lines, context);
+    }
+    return context;
 }
 
 exports.parse = function (content, ctx) {

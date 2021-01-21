@@ -29,7 +29,7 @@ exports.parse = function (content, ctx) {
                 let startX = param2 && !isNaN(param2) ? param2 : '-200';
                 let duration = param3 && !isNaN(param3) ? param3 : '1000';
                 code += 'tween.get(oldImg.get("display").object)';
-                code += '.to({x: ' + param2 + '}, ' + duration + ').call(() => {';
+                code += '.to({x: ' + param2 + ', alpha: 0.0}, ' + duration + ').call(() => {';
                 code += "oldImg.active = false; sprite.plot.signal(); });"
                 code += "yield sprite.plot.wait();"
 

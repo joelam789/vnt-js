@@ -3,7 +3,7 @@ export class SceneDialogSpriteDialogBox1 {
     minHeight = 60;
 
     open(plotspr: any, speaker: string, words: Array<string>, speed: number = 50, more: boolean = false) {
-        //let game = spr.game;
+        let game = plotspr.game;
         let tween = plotspr.scene.sys("tween");
         let chatbox = plotspr.scene.sprites["dialog-box1"];
         let chatmsg = plotspr.scene.sprites["dialog-text1"];
@@ -13,6 +13,11 @@ export class SceneDialogSpriteDialogBox1 {
 
             let showing = chatbox.active;
             let display = chatbox.get("display").object;
+
+            if (!showing) {
+                display.x = (game.get("display").width - display.width) / 2;
+                display.y = game.get("display").height - display.height;
+            }
 
             if (!chatbox.custom) {
                 chatbox.custom = {};

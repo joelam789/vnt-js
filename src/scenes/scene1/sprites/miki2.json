@@ -7,8 +7,8 @@
             "image": "Miki_PoseA_Casual_Smile.png"
         },
         "display": {
-            "x": 320,
-            "y": 240,
+            "x": 640,
+            "y": 360,
             "scale": {
                 "x": 0.5,
                 "y": 0.5

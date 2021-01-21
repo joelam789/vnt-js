@@ -29,12 +29,13 @@ export class GamePlot {
             let newImgName = "miki1";
             let newImg = scene.spr(newImgName);
             newImg.active = true;
-            newImg.get("display").object.alpha = 1.0;
-            newImg.get("display").object.x = -190;
-            newImg.get("display").object.y = 320;
+            newImg.get("display").object.alpha = 0.0;
+            newImg.get("display").object.x = 60;
+            newImg.get("display").object.y = 520;
             tween.get(newImg.get("display").object).to({
-                x: 160
-            }, 300).call(() => sprite.plot.signal());
+                x: 160,
+                alpha: 1.0
+            }, 400).call(() => sprite.plot.signal());
             yield sprite.plot.wait();
         }
         dialog.open(sprite, "Cindy Lam", ["你周末打算干什么去？", ]);
@@ -61,20 +62,31 @@ export class GamePlot {
         }
         dialog.open(sprite, "Cindy Lam", ["我和你不一样，我就是听听音乐，或者看看书。你喜欢看书吗？", ]);
         yield sprite.plot.wait();
-        dialog.open(sprite, "Jason Brown", ["\"我也看，当时看的比较少。\"", ]);
+        dialog.open(sprite, "Jason Brown", ["我也看，只是看的不多。", ]);
+        yield sprite.plot.wait();
+        dialog.open(sprite, "Cindy Lam", ["那你平时喜欢看哪些书呢？", ]);
+        yield sprite.plot.wait();
+        dialog.open(sprite, "Jason Brown", ["一些武侠小说呀，比如", "《射雕英雄传》、《神雕侠侣》、", "《书剑恩仇录》、《笑傲江湖》、", "《七剑下天山》、《白发魔女传》。。。", ]);
+        yield sprite.plot.wait();
+        dialog.open(sprite, "Jason Brown", ["还有一些科幻小说，比如", "《八十天环游世界》、《时间机器》、", "《科学怪人》、《太空漫游2001》、", "《指环王》、《哈利波特》...... 等等", ]);
+        yield sprite.plot.wait();
+        dialog.open(sprite, "Cindy Lam", ["那你读的书还真不少哟！", ]);
+        yield sprite.plot.wait();
+        dialog.open(sprite, "Jason Brown", ["嘿嘿，算半个小说迷吧", ]);
         yield sprite.plot.wait();
         if (true) {
             let oldImgName = "miki2";
             let oldImg = scene.spr(oldImgName);
             tween.get(oldImg.get("display").object).to({
-                x: -190
-            }, 300).call(() => {
+                x: 60,
+                alpha: 0.0
+            }, 400).call(() => {
                 oldImg.active = false;
                 sprite.plot.signal();
             });
             yield sprite.plot.wait();
         }
-        dialog.open(sprite, "???", ["好了，就先这样吧。。。", ]);
+        dialog.open(sprite, "???", ["那。。。不如今天就先这样。。。？！", ]);
         yield sprite.plot.wait();
         dialog.open(sprite, "", ["(loop)", ]);
         yield sprite.plot.wait();

@@ -18,8 +18,8 @@
         {
             "parent": "dialog-box1",
 
-            "x": 300,
-            "y": 148,
+            "x": 570,
+            "y": 140,
 
             "anchor":
             {
@@ -36,7 +36,8 @@
 		
 		"event":
         {
-            "onActivate": "onActivate"
+            "onActivate": "onActivate",
+            "onUpdate": "onUpdate"
         }
     }
 }

@@ -19,32 +19,15 @@ function mergeSimpleObject(baseOne, newOne) {
 }
 
 function processCommandLine(line, context) {
-    //console.log("line", line);
-    let parts = line.split(' ');
-    if (parts.length <= 1) return context;
-    context.command = parts[1].trim();
-    let parser = context.parsers ? context.parsers.get(context.command) : null;
-    if (!parser) {
-        console.warn("command parser not found:", context.command);
-        return context;
-    } else {
-        return parser.parse(line, context);
+    if (context.vnts) {
+        return context.vnts.processCommandLine(line, context);
     }
     return context;
 }
 
 function processCommandSection(lines, context) {
-    //console.log("lines", lines);
-    let parts = lines[0].split(' ');
-    if (parts.length <= 1) return context;
-    context.section = parts[1].trim();
-    context.command = parts[1].trim();
-    let parser = context.parsers ? context.parsers.get(context.section) : null;
-    if (!parser) {
-        console.warn("command parser not found:", context.section);
-        return context;
-    } else {
-        return parser.parse(lines, context);
+    if (context.vnts) {
+        return context.vnts.processCommandSection(lines, context);
     }
     return context;
 }

@@ -38,12 +38,13 @@ export class GamePlot {
             let newImgName = "miki1";
             let newImg = scene.spr(newImgName);
             newImg.active = true;
-            newImg.get("display").object.alpha = 1.0;
-            newImg.get("display").object.x = -190;
-            newImg.get("display").object.y = 320;
+            newImg.get("display").object.alpha = 0.0;
+            newImg.get("display").object.x = 60;
+            newImg.get("display").object.y = 520;
             tween.get(newImg.get("display").object).to({
-                x: 160
-            }, 300).call(() => sprite.plot.signal());
+                x: 160,
+                alpha: 1.0
+            }, 400).call(() => sprite.plot.signal());
             yield sprite.plot.wait();
         }
         scene.sys("vnt").playVoice("v-01");
@@ -62,8 +63,9 @@ export class GamePlot {
             let oldImgName = "miki1";
             let oldImg = scene.spr(oldImgName);
             tween.get(oldImg.get("display").object).to({
-                x: -190
-            }, 300).call(() => {
+                x: 60,
+                alpha: 0.0
+            }, 400).call(() => {
                 oldImg.active = false;
                 sprite.plot.signal();
             });
