@@ -1,0 +1,31 @@
+{
+    "script": true,
+
+    "components":
+    {
+        "graphic":
+        {
+            "slice": [4, 4, 4, 4],
+            "area":
+            {
+                "x": 0,
+                "y": 0,
+                "width": 10,
+                "height": 10
+            }
+        },
+
+        "display":
+        {
+            "x": 10,
+            "y": 10,
+            "width": 100,
+            "height": 100,
+			
+			"layer": "ui2",
+			"visible": true
+        }
+    }
+
+    
+}

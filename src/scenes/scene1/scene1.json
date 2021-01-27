@@ -20,6 +20,8 @@
             "bg": "",
             "bgm": "",
             "dialog": "dialog-box1",
+            "savebox": "save-box1",
+            "loadbox": "load-box1",
             "flags": [
                 0,
                 0,
@@ -42,7 +44,8 @@
     },
     "scenes": [
         "vnt-info",
-        "vnt-dialog"
+        "vnt-dialog",
+        "vnt-save"
     ],
     "systems": [
         "motion",

@@ -1,0 +1,31 @@
+{
+    "active": true,
+    "script": true,
+	"template": "vnt-box",
+
+    "components":
+    {
+        "display":
+        {
+			"parent": "save-box1",
+			
+            "x": 650,
+            "y": 370,
+			
+            "width": 140,
+            "height": 60
+        },
+		
+		"mouse":
+		{
+			"enabled": true,
+			"shareable": false,
+			"actions": ["pointerup"]
+		},
+		
+		"event":
+        {
+			"onPointerup": "onPointerup"
+        }
+    }
+}

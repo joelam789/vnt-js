@@ -20,7 +20,7 @@
 
 		"script": true,
 
-		"scenes": ["vnt-info", "vnt-dialog", "vnt-list", "scene1"],
+		"scenes": ["vnt-info", "vnt-dialog", "vnt-list", "vnt-save", "scene1"],
 		"first": "scene1"
 	},
 
@@ -54,6 +54,8 @@
 				"bg": "",
 				"bgm": "",
 				"dialog": "dialog-box1",
+				"savebox": "save-box1",
+				"loadbox": "load-box1",
 				"flags": [0, 0, 0, 0, 0]
 			}
 		},
@@ -67,7 +69,7 @@
 			"jsons":  []
 		},
 
-		"scenes": ["vnt-info", "vnt-dialog"],
+		"scenes": ["vnt-info", "vnt-dialog", "vnt-save"],
 		"systems": ["motion", "vnt"],
 		"sprites": []
 	}

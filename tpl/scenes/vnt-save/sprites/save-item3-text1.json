@@ -1,0 +1,35 @@
+{
+    "active": true,
+    "script": false,
+	"template": "vnt-text",
+
+    "components":
+    {
+	"text":
+        {
+            "content": "No.3",
+            "style":
+            {
+                "fontFamily": "Verdana",
+                "fontSize": 16,
+                "fill": "#ffffff"
+            }
+        },
+		
+        "display":
+        {
+			"parent": "save-item3",
+			
+			"layer": "ui2",
+			
+            "x": 10,
+            "y": 10,
+			
+			"anchor":
+            {
+                "x": 0,
+                "y": 0
+            }
+        }
+    }
+}

@@ -149,7 +149,8 @@ export class SceneDialogSpriteDialogBox1 {
     }
     
     onPointerup(spr, event) {
-        //console.log("DialogBox1 - onPointerup: " + spr.name);
+        let pos = event.data.getLocalPosition(spr.get("display").object);
+        if (pos.y > 130 && pos.x < 540) return; // event.stopped not work for parent...
         this.next();
 	}
 

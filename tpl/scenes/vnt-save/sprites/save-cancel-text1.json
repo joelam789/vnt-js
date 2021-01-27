@@ -1,0 +1,35 @@
+{
+    "active": true,
+    "script": false,
+	"template": "vnt-text",
+
+    "components":
+    {
+	"text":
+        {
+            "content": "Cancel",
+            "style":
+            {
+                "fontFamily": "Verdana",
+                "fontSize": 16,
+                "fill": "#ffffff"
+            }
+        },
+		
+        "display":
+        {
+			"parent": "save-cancel1",
+			
+			"layer": "ui2",
+			
+            "x": 70,
+            "y": 30,
+			
+			"anchor":
+            {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    }
+}

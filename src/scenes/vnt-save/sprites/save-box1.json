@@ -1,0 +1,21 @@
+{
+    "active": false,
+    "script": true,
+	"template": "vnt-box",
+
+    "components":
+    {
+        "display":
+        {
+            "x": 230,
+            "y": 100,
+            "width": 820,
+            "height": 450
+        },
+		
+		"event":
+        {
+            "onActivate": "onActivate"
+        }
+    }
+}

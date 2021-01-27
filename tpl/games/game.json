@@ -5,13 +5,15 @@
 		{
 			"move": "smooth",
 			"scale": "smooth",
-			"layers": ["bg", "map", "img", "obj", "ui", "txt"]
+			"layers": ["bg", "img", "ui", "txt", "ui2", "ui3"]
 		},
 
 		"event":
 		{
 			"onInit": "onInit"
-		}
+		},
+
+		"snapshot": { }
 	},
 
 	"script": true,

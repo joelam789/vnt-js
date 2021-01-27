@@ -6,12 +6,17 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 	vnt: any = null;
 	scene: OGE2D.Scene = null;
 	dialog: OGE2D.Sprite = null;
+	savebox: OGE2D.Sprite = null;
+	//loadbox: OGE2D.Sprite = null;
+	saveitem: OGE2D.Sprite = null;
+	loadsave: boolean = false;
 	profile: any = null;
 	gamepad: any = null;
 	keyboard: any = null;
 	holdon: boolean = false;
 
 	init(game: OGE2D.Game): boolean {
+		//this.clearSavedRecords();
 		this.profile = game.components.vnt;
 		console.log("vnt system is loaded successfully");
 		return true;
@@ -26,6 +31,8 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		this.vnt = scene.components["vnt"];
 		if (this.vnt) {
 			if (this.vnt.dialog) this.dialog = scene.sprites[this.vnt.dialog];
+			if (this.vnt.savebox) this.savebox = scene.sprites[this.vnt.savebox];
+			//if (this.vnt.loadbox) this.loadbox = scene.sprites[this.vnt.loadbox];
 			if (!this.vnt.times) this.vnt.times = 1;
 			else this.vnt.times += 1;
 		}
@@ -33,6 +40,250 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 
 	update(scene: OGE2D.Scene, time: number) {
 		this.handleKeyboard(scene);
+	}
+
+	createTempPreviewCanvas(): HTMLCanvasElement {
+		let gamew = this.scene.game.get("display").width;
+        let gameh = this.scene.game.get("display").height;
+		let canv = document.createElement("canvas");
+        canv.id = "temp-canvas";
+        canv.style.position = "absolute";
+        canv.style.left = "250px";
+        canv.style.top = "140px";
+		canv.style.zIndex = "10";
+		return canv;
+	}
+
+	screenshot() {
+
+        let spr = this.savebox;
+
+        let oldOne = document.getElementById("temp-canvas");
+        if (oldOne) document.getElementById("game").removeChild(oldOne);
+
+        let pixi = spr.game.get("display").pixi;
+        let gamew = spr.game.get("display").width;
+		let gameh = spr.game.get("display").height;
+		
+        let fullscr = pixi.renderer.plugins.extract.canvas(pixi.stage);
+
+		let canv = this.createTempPreviewCanvas();
+        canv.width = gamew * 3 / 8;
+		canv.height = gameh * 3 / 8;
+        canv.getContext("2d")
+            .drawImage(fullscr, (fullscr.width-gamew)/2, (fullscr.height-gameh)/2,
+                        gamew, gameh, 0, 0, canv.width, canv.height);
+		
+		let imgData = canv.toDataURL("image/jpeg", 1.0);
+		localStorage.setItem("vnt-current-screenshot", imgData);
+
+    }
+
+	snapshot() {
+		let newOne = { 
+			bgm: this.vnt && this.vnt.bgm ? this.vnt.bgm : null,
+			vnt: JSON.parse(JSON.stringify(this.scene.game.components["vnt"])),
+			plot: "",
+			displays: []
+		};
+		for (let spr of this.scene.spriteList) {
+			if (!spr.template) continue;
+			if (spr.template == "vnt-plot") {
+				if (spr.active) newOne.plot = spr.name;
+				continue;
+			} else if (spr.template == "vnt-bg" || spr.template == "vnt-img") {
+				let pixiSpr = spr.get("display").object;
+				//console.log(spr.name, spr.active);
+				let display = {
+					spr: spr.name,
+					active: spr.active,
+					x: pixiSpr.x,
+					y: pixiSpr.y,
+					angle: pixiSpr.angle,
+					alpha: pixiSpr.alpha,
+					zIndex: pixiSpr.zIndex,
+					visible: pixiSpr.visible,
+					scale: {
+						x: pixiSpr.scale.x,
+						y: pixiSpr.scale.y
+					},
+					anchor: {
+						x: pixiSpr.anchor.x,
+						y: pixiSpr.anchor.y
+					}
+				};
+				newOne.displays.push(display);
+				continue;
+			}
+			
+		}
+		this.scene.game.components["snapshot"] = newOne;
+		return newOne;
+	}
+
+	getSnapshot() {
+		return this.scene.game.components.snapshot;
+	}
+
+	restoreSnapshot(oldOne: any) {
+		//console.log(oldOne);
+		if (!this.scene || !oldOne) return;
+		if (this.scene) this.scene.reset();
+		if (oldOne.bgm) this.playBgm(oldOne.bgm);
+		else this.stopBgm();
+		if (!oldOne.displays || oldOne.displays.length <= 0) return;
+		for (let display of oldOne.displays) {
+			let spr = this.scene.spr(display.spr);
+			let pixiSpr = spr ? spr.get("display").object : null;
+			if (pixiSpr) {
+				pixiSpr.x = display.x;
+				pixiSpr.y = display.y;
+				pixiSpr.angle = display.angle;
+				pixiSpr.alpha = display.alpha;
+				pixiSpr.zIndex = display.zIndex;
+				pixiSpr.visible = display.visible;
+				pixiSpr.scale.x = display.scale.x;
+				pixiSpr.scale.y = display.scale.y;
+				pixiSpr.anchor.x = display.anchor.x;
+				pixiSpr.anchor.y = display.anchor.y;
+			}
+			if (spr) spr.active = display.active;
+			
+		}
+		let activePlot = null;
+		if (oldOne.plot) {
+			for (let spr of this.scene.spriteList) {
+				if (spr.template && spr.template == "vnt-plot") {
+					spr.active = false;
+					if (spr.name == oldOne.plot) activePlot = spr;
+				}
+			}
+		}
+		if (oldOne.vnt) {
+			this.scene.game.components["vnt"] = oldOne.vnt;
+		}
+		if (activePlot) {
+			this.scene.timeout(100, () => activePlot.active = true);
+		}
+	}
+
+	getDialog() {
+		return this.dialog;
+	}
+
+	clearSavedRecords() {
+		let total = 4;
+		for (let i=1; i<=total; i++) {
+			let prefix = "vnt-" + "save-item" + i;
+			localStorage.setItem(prefix + "-screenshot", "");
+			localStorage.setItem(prefix + "-datetime", "");
+			localStorage.setItem(prefix + "-plot", "");
+		}
+	}
+
+	showSaveLoad(wantToSave: boolean = true, visible: boolean = true) {
+		let total = 4;
+		if (this.scene && this.savebox && visible) {
+			this.loadsave = !wantToSave;
+			if (wantToSave) this.screenshot();
+			for (let i=1; i<=total; i++) {
+				let savedt = localStorage.getItem("vnt-" + "save-item" + i + "-datetime");
+				if (!savedt) savedt = "(Empty)";
+				let text1 = this.scene.spr("save-item" + i + "-text1");
+				if (text1) text1.get("display").object.style.fontWeight = "normal";
+				let text2 = this.scene.spr("save-item" + i + "-text2");
+				if (text2) {
+					text2.get("display").object.style.fontWeight = "normal";
+					text2.get("display").object.text = savedt;
+				}
+			}
+			let title = this.scene.spr("save-title1");
+			if (title) title.get("display").object.text = this.loadsave ? "Load Game" : "Save Game";
+		}
+		this.saveitem = null;
+		if (this.savebox) this.savebox.active = visible;
+		let oldOne = document.getElementById("temp-canvas");
+		if (oldOne) document.getElementById("game").removeChild(oldOne);
+	}
+
+	showSaveBox(visible: boolean = true) {
+		this.showSaveLoad(true, visible);
+	}
+	showLoadBox(visible: boolean = true) {
+		//if (this.loadbox) this.loadbox.active = visible;
+		this.showSaveLoad(false, visible);
+	}
+
+	selectSaveItem(item) {
+		if (!item) return;
+		let total = 4;
+		for (let i=1; i<=total; i++) {
+			let text1 = item.scene.spr("save-item" + i + "-text1");
+			let text2 = item.scene.spr("save-item" + i + "-text2");
+			if (text1) text1.get("display").object.style.fontWeight = "normal";
+			if (text2) text2.get("display").object.style.fontWeight = "normal";
+		}
+		item.scene.spr(item.name + "-text1").get("display").object.style.fontWeight = "bold";
+		item.scene.spr(item.name + "-text2").get("display").object.style.fontWeight = "bold";
+		this.saveitem = item;
+
+		let saveimg = localStorage.getItem("vnt-" + item.name + "-screenshot");
+		if (saveimg) {
+			//console.log("vnt-" + item.name + "-screenshot", saveimg);
+			let needNewCanvas = false;
+			let gamew = item.game.get("display").width;
+        	let gameh = item.game.get("display").height;
+			let canv = document.getElementById("temp-canvas") as HTMLCanvasElement;
+        	if (!canv) {
+				needNewCanvas = true;
+				canv = this.createTempPreviewCanvas();
+			}
+			let img = new Image();
+			img.onload = () => {
+				let pvcanv = document.getElementById("temp-canvas") as HTMLCanvasElement;
+				if (pvcanv) {
+					pvcanv.width = img.width;
+					pvcanv.height = img.height;
+					pvcanv.getContext("2d").drawImage(img, 0, 0);
+				}
+			};
+			img.src = saveimg;
+			if (canv && needNewCanvas) document.getElementById("game").appendChild(canv);
+
+		} else {
+			console.log("Data not found: " + "vnt-" + item.name + "-screenshot");
+			let oldOne = document.getElementById("temp-canvas");
+			if (oldOne) document.getElementById("game").removeChild(oldOne);
+		}
+	}
+
+	saveToItem() {
+		let nowdt = new Date();
+		let item = this.saveitem;
+		if (item) {
+			let imgData = localStorage.getItem("vnt-current-screenshot");
+			localStorage.setItem("vnt-" + item.name + "-screenshot", imgData);
+			localStorage.setItem("vnt-" + item.name + "-plot", JSON.stringify(this.getSnapshot()));
+			localStorage.setItem("vnt-" + item.name + "-datetime", nowdt.toISOString());
+			console.log("Saved game to " + item.name);
+		}
+	}
+
+	loadFromItem() {
+		let item = this.saveitem;
+		let plotData = item ? localStorage.getItem("vnt-" + item.name + "-plot") : null;
+		let plotState = plotData ? JSON.parse(plotData) : null;
+		if (plotState) {
+			this.restoreSnapshot(plotState);
+			console.log("Loaded game from " + item.name);
+		} else {
+			console.log("No game record loaded");
+		}
+	}
+
+	runSaveLoad() {
+		if (this.loadsave) this.loadFromItem();
+		else this.saveToItem();
 	}
 
 	getBackgroundImageName() {

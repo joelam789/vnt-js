@@ -18,6 +18,13 @@
         {
             "layer": "txt"
         },
+		
+		"mouse":
+		{
+			"enabled": true,
+			"shareable": true,
+			"actions": [""]
+		},
 
 		"event":
         {

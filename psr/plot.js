@@ -30,7 +30,8 @@ function genScriptStart(ctx) {
                             let game = sprite.game;
                             let scene = sprite.scene;
                             let tween = scene.sys("tween");
-                            let dialog = scene.spr("dialog-box1").code;`;
+                            let dialog = scene.sys("vnt").getDialog().code;
+                            scene.sys("vnt").snapshot();`;
 
         ctx.script = jscode;
     }
