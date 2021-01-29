@@ -14,7 +14,7 @@
         "event": {
             "onInit": "onInit",
             "onActivate": "onActivate",
-            "onPointerdown": "onPointerdown"
+            "onPointerdown": "vnt.onSceneMapClick"
         },
         "vnt": {
             "bg": "",
@@ -29,6 +29,9 @@
                 0,
                 0
             ]
+        },
+        "vars": {
+            "times": 0
         }
     },
     "script": true,
@@ -39,6 +42,11 @@
         "sounds": [
             "v-01.wav",
             "v-02.wav"
+        ],
+        "images": [
+            "school_front_morning.jpg",
+            "school_front_afternoon.jpg",
+            "school_front_night.jpg"
         ],
         "jsons": []
     },
@@ -54,9 +62,19 @@
     "sprites": [
         "bg1",
         "bg2",
+        "bg3",
         "miki1",
         "miki2",
         "first-meet",
-        "meet-again"
+        "meet-again",
+        "night-talk",
+        "q1",
+        "q2",
+        "try-to-guess",
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "a5"
     ]
 }

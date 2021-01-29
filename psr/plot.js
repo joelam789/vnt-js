@@ -22,7 +22,7 @@ function genJson(ctx) {
     return ctx;
 }
 
-function genScriptStart(ctx) {
+function genScriptStart(ctx, skipSavepoint = false) {
     if (ctx.plot && ctx.subpath) {
 
         let jscode = `export class GamePlot {
@@ -30,9 +30,8 @@ function genScriptStart(ctx) {
                             let game = sprite.game;
                             let scene = sprite.scene;
                             let tween = scene.sys("tween");
-                            let dialog = scene.sys("vnt").getDialog().code;
-                            scene.sys("vnt").snapshot();`;
-
+                            let dialog = scene.sys("vnt").getDialog().code;`;
+        if (!skipSavepoint) jscode += 'scene.sys("vnt").snapshot();';
         ctx.script = jscode;
     }
     return ctx;
@@ -61,11 +60,12 @@ exports.parse = function (content, ctx) {
     let line = Array.isArray(content) ? content[0] : content;
     let parts = line.split(' ');
     let labelName = parts.length > 2 ? parts[2].trim() : "";
+    let param1 = parts.length > 3 ? parts[3].trim() : "";
     if (!labelName) return ctx;
     let lastLabel = ctx.plot ? ctx.plot : "";
     if (lastLabel) genScriptEnd(ctx, labelName);
     ctx.plot = labelName;
     genJson(ctx);
-    genScriptStart(ctx);
+    genScriptStart(ctx, param1 && param1 == "no-savepoint");
     return ctx;
 }

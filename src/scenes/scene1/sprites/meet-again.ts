@@ -9,18 +9,25 @@ export class GamePlot {
             let oldBgName = scene.sys("vnt").getBackgroundImageName();
             let newBgName = "bg2";
             if (oldBgName && oldBgName != newBgName) {
-                scene.spr(oldBgName).get("display").object.alpha = 1.0;
-                tween.get(scene.spr(oldBgName).get("display").object).to({
-                    alpha: 0.0
-                }, 1000).call(() => scene.spr(oldBgName).active = false);
-                scene.spr(newBgName).active = true;
-                scene.spr(newBgName).get("display").object.alpha = 0.0;
-                tween.get(scene.spr(newBgName).get("display").object).to({
-                    alpha: 1.0
-                }, 1000).call(() => sprite.plot.signal());
-                yield sprite.plot.wait();
                 scene.sys("vnt").setBackgroundImageName(newBgName);
-            } else if (!oldBgName) {
+                if (scene.spr(oldBgName).active) {
+                    scene.spr(oldBgName).get("display").object.alpha = 1.0;
+                    tween.get(scene.spr(oldBgName).get("display").object).to({
+                        alpha: 0.0
+                    }, 1000).call(() => scene.spr(oldBgName).active = false);
+                }
+                if (!scene.spr(newBgName).active) {
+                    scene.spr(newBgName).active = true;
+                    scene.spr(newBgName).get("display").object.alpha = 0.0;
+                    tween.get(scene.spr(newBgName).get("display").object).to({
+                        alpha: 1.0
+                    }, 1000).call(() => sprite.plot.signal());
+                    yield sprite.plot.wait();
+                } else {
+                    scene.spr(newBgName).active = true;
+                    scene.spr(newBgName).get("display").object.alpha = 1.0;
+                }
+            } else {
                 scene.spr(newBgName).active = true;
                 scene.spr(newBgName).get("display").object.alpha = 1.0;
                 scene.sys("vnt").setBackgroundImageName(newBgName);
@@ -75,25 +82,7 @@ export class GamePlot {
         yield sprite.plot.wait();
         dialog.open(sprite, "Jason Brown", ["嘿嘿，算半个小说迷吧", ]);
         yield sprite.plot.wait();
-        if (true) {
-            let oldImgName = "miki2";
-            let oldImg = scene.spr(oldImgName);
-            tween.get(oldImg.get("display").object).to({
-                x: 60,
-                alpha: 0.0
-            }, 400).call(() => {
-                oldImg.active = false;
-                sprite.plot.signal();
-            });
-            yield sprite.plot.wait();
-        }
-        dialog.open(sprite, "???", ["那。。。不如今天就先这样。。。？！", ]);
-        yield sprite.plot.wait();
-        dialog.open(sprite, "", ["(loop)", ]);
-        yield sprite.plot.wait();
         sprite.active = false;
-        scene.timeout(50, () => scene.spr("first-meet").active = true);
-        return;
-        sprite.active = false;
+        scene.spr("night-talk").active = true;
     }
 }

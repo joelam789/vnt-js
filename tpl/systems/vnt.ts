@@ -42,6 +42,22 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		this.handleKeyboard(scene);
 	}
 
+	onSceneMapClick(scene, event) {
+        //let pos = event.data.getLocalPosition(scene.components["display"].object);
+        //console.log("scene onPointerdown: " + scene.name + " - x=" + pos.x + " , y=" + pos.y);
+        if (this.dialog && this.dialog.active) {
+			this.dialog.code.next();
+		}
+	}
+
+	openPlot(plotName) {
+		this.scene.timeout(50, () => this.scene.spr(plotName).active = true);
+	}
+
+	getDataNamePrefix() {
+		return "vnt-" + this.scene.game.name + "-";
+	}
+
 	createTempPreviewCanvas(): HTMLCanvasElement {
 		let gamew = this.scene.game.get("display").width;
         let gameh = this.scene.game.get("display").height;
@@ -75,14 +91,18 @@ export class VisualNovelTemplate implements OGE2D.Updater {
                         gamew, gameh, 0, 0, canv.width, canv.height);
 		
 		let imgData = canv.toDataURL("image/jpeg", 1.0);
-		localStorage.setItem("vnt-current-screenshot", imgData);
+		localStorage.setItem(this.getDataNamePrefix() + "current-screenshot", imgData);
 
     }
 
 	snapshot() {
 		let newOne = { 
+			bg: this.vnt && this.vnt.bg ? this.vnt.bg : null,
 			bgm: this.vnt && this.vnt.bgm ? this.vnt.bgm : null,
-			vnt: JSON.parse(JSON.stringify(this.scene.game.components["vnt"])),
+			vnt: JSON.parse(JSON.stringify(this.scene.components["vnt"])),
+			gvnt: JSON.parse(JSON.stringify(this.scene.game.components["vnt"])),
+			vars: JSON.parse(JSON.stringify(this.scene.components["vars"])),
+			gvars: JSON.parse(JSON.stringify(this.scene.game.components["vars"])),
 			plot: "",
 			displays: []
 		};
@@ -150,17 +170,41 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 			if (spr) spr.active = display.active;
 			
 		}
+		let activeBg = null;
 		let activePlot = null;
-		if (oldOne.plot) {
-			for (let spr of this.scene.spriteList) {
+		for (let spr of this.scene.spriteList) {
+			if (oldOne.plot) {
 				if (spr.template && spr.template == "vnt-plot") {
 					spr.active = false;
 					if (spr.name == oldOne.plot) activePlot = spr;
 				}
 			}
+			if (oldOne.bg) {
+				if (spr.template && spr.template == "vnt-bg") {
+					spr.active = false;
+					if (spr.name == oldOne.bg) activeBg = spr;
+				}
+			}
 		}
 		if (oldOne.vnt) {
-			this.scene.game.components["vnt"] = oldOne.vnt;
+			this.scene.components["vnt"] = oldOne.vnt;
+		}
+		if (oldOne.gvnt) {
+			this.scene.game.components["vnt"] = oldOne.gvnt;
+		}
+		if (oldOne.vars) {
+			this.scene.components["vars"] = oldOne.vars;
+		}
+		if (oldOne.gvars) {
+			this.scene.game.components["vars"] = oldOne.gvars;
+		}
+		if (activeBg) {
+			activeBg.active = true;
+			activeBg.get("display").object.alpha = 1.0;
+			activeBg.get("display").object.visible = true;
+			this.setBackgroundImageName(activeBg.name);
+		} else {
+			this.setBackgroundImageName("");
 		}
 		if (activePlot) {
 			this.scene.timeout(100, () => activePlot.active = true);
@@ -171,10 +215,20 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		return this.dialog;
 	}
 
+	getActivePlotName() {
+		for (let spr of this.scene.spriteList) {
+			if (!spr.template) continue;
+			if (spr.template == "vnt-plot") {
+				if (spr.active) return spr.name;
+			}
+		}
+		return null;
+	}
+
 	clearSavedRecords() {
 		let total = 4;
 		for (let i=1; i<=total; i++) {
-			let prefix = "vnt-" + "save-item" + i;
+			let prefix = this.getDataNamePrefix() + "save-item" + i;
 			localStorage.setItem(prefix + "-screenshot", "");
 			localStorage.setItem(prefix + "-datetime", "");
 			localStorage.setItem(prefix + "-plot", "");
@@ -187,7 +241,8 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 			this.loadsave = !wantToSave;
 			if (wantToSave) this.screenshot();
 			for (let i=1; i<=total; i++) {
-				let savedt = localStorage.getItem("vnt-" + "save-item" + i + "-datetime");
+				let savedt = localStorage.getItem(this.getDataNamePrefix() 
+													+ "save-item" + i + "-datetime");
 				if (!savedt) savedt = "(Empty)";
 				let text1 = this.scene.spr("save-item" + i + "-text1");
 				if (text1) text1.get("display").object.style.fontWeight = "normal";
@@ -227,7 +282,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		item.scene.spr(item.name + "-text2").get("display").object.style.fontWeight = "bold";
 		this.saveitem = item;
 
-		let saveimg = localStorage.getItem("vnt-" + item.name + "-screenshot");
+		let saveimg = localStorage.getItem(this.getDataNamePrefix() + item.name + "-screenshot");
 		if (saveimg) {
 			//console.log("vnt-" + item.name + "-screenshot", saveimg);
 			let needNewCanvas = false;
@@ -251,7 +306,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 			if (canv && needNewCanvas) document.getElementById("game").appendChild(canv);
 
 		} else {
-			console.log("Data not found: " + "vnt-" + item.name + "-screenshot");
+			console.log("Data not found: " + this.getDataNamePrefix() + item.name + "-screenshot");
 			let oldOne = document.getElementById("temp-canvas");
 			if (oldOne) document.getElementById("game").removeChild(oldOne);
 		}
@@ -261,17 +316,18 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		let nowdt = new Date();
 		let item = this.saveitem;
 		if (item) {
-			let imgData = localStorage.getItem("vnt-current-screenshot");
-			localStorage.setItem("vnt-" + item.name + "-screenshot", imgData);
-			localStorage.setItem("vnt-" + item.name + "-plot", JSON.stringify(this.getSnapshot()));
-			localStorage.setItem("vnt-" + item.name + "-datetime", nowdt.toISOString());
+			let prefix = this.getDataNamePrefix();
+			let imgData = localStorage.getItem(prefix + "current-screenshot");
+			localStorage.setItem(prefix + item.name + "-screenshot", imgData);
+			localStorage.setItem(prefix + item.name + "-plot", JSON.stringify(this.getSnapshot()));
+			localStorage.setItem(prefix + item.name + "-datetime", nowdt.toISOString());
 			console.log("Saved game to " + item.name);
 		}
 	}
 
 	loadFromItem() {
 		let item = this.saveitem;
-		let plotData = item ? localStorage.getItem("vnt-" + item.name + "-plot") : null;
+		let plotData = item ? localStorage.getItem(this.getDataNamePrefix() + item.name + "-plot") : null;
 		let plotState = plotData ? JSON.parse(plotData) : null;
 		if (plotState) {
 			this.restoreSnapshot(plotState);
@@ -418,7 +474,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		//console.log(act, talking);
 
 		if (talking && !this.holdon) {
-			if (this.isAnswering()) {
+			if (this.isAnswering() && false) {
 				if (dir && (dir == "up" || dir == "down")) {
 					this.dialog.code.moveCursor(dir);
 					this.holdon = true;

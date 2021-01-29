@@ -33,10 +33,18 @@ function genJson(ctx, bgName, bgPath, isFirst, scaleX, scaleY) {
         let jsonfile = ctx.subpath + "/" + bgName + ".json";
         fs.writeFileSync(jsonfile, jsonstr, 'utf8');
         ctx.json = jsonstr;
+
+        // add it to scene
         if (isFirst) ctx.bg = bgName;
         if (!ctx.setting.sprites) ctx.setting.sprites = [];
         if (ctx.setting.sprites.indexOf(bgName) < 0)
             ctx.setting.sprites.push(bgName);
+
+        // try to preload it btw
+        if (!ctx.setting.preload) ctx.setting.preload = {};
+        if (!ctx.setting.preload.images) ctx.setting.preload.images = [];
+        if (ctx.setting.preload.images.indexOf(bgPath) < 0)
+            ctx.setting.preload.images.push(bgPath);
     }
     return ctx;
 }

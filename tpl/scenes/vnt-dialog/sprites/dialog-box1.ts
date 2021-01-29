@@ -69,13 +69,18 @@ export class SceneDialogSpriteDialogBox1 {
         }
     }
 
-    next() {
+    next(flag: string = null) {
         let spr = (this as any).owner;
         let chatbox = spr.scene.sprites["dialog-box1"];
         let chatstate = chatbox && chatbox.custom ? chatbox.custom.status : "";
+        //if (flag) console.log(chatstate, flag, chatbox.custom.plot);
         if (chatstate == "done" || chatstate == "more" ) {
-            let plotctx = spr.scene.sprites[chatbox.custom.plot];
-            if (plotctx) plotctx.plot.signal();
+            let activePlotName = spr.scene.sys("vnt").getActivePlotName();
+            let plotctx = activePlotName ? spr.scene.sprites[activePlotName] : null;
+            if (plotctx) {
+                if (flag) plotctx.plot.signal(flag);
+                else plotctx.plot.signal();
+            }
         } else if (chatstate == "open") {
             let chatmsg = spr.scene.sprites["dialog-text1"];
             if (chatmsg && chatmsg.custom && chatmsg.custom.content) {
@@ -143,9 +148,9 @@ export class SceneDialogSpriteDialogBox1 {
         if (answer1 && cursor) answer1.selectAnswer(cursor);
     }
 
-    answer(spr, options: Array<string>, left = 150, top = 40, gap = 80) {
+    answer(spr, options: Array<string>, gap = 80) {
         let answer1 = spr.scene.spr("answer-box1").code;
-        if (answer1) answer1.open(spr, options, left, top, gap);
+        if (answer1) answer1.open(spr, options, gap);
     }
     
     onPointerup(spr, event) {

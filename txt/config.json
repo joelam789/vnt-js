@@ -15,7 +15,9 @@
 			{        
 				"controllable": true,
 				"flags": [0, 0, 0, 0, 0]
-			}
+			},
+
+			"vars": { }
 		},
 
 		"script": true,
@@ -46,7 +48,7 @@
 			{
 				"onInit": "onInit",
 				"onActivate": "onActivate",
-				"onPointerdown": "onPointerdown"
+				"onPointerdown": "vnt.onSceneMapClick"
 			},
 
 			"vnt":
@@ -57,7 +59,9 @@
 				"savebox": "save-box1",
 				"loadbox": "load-box1",
 				"flags": [0, 0, 0, 0, 0]
-			}
+			},
+
+			"vars": { }
 		},
 
 		"script": true,
@@ -66,6 +70,7 @@
 		{
 			"musics": [],
 			"sounds": [],
+			"images": [],
 			"jsons":  []
 		},
 

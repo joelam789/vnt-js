@@ -152,9 +152,6 @@ exports.generate = function () {
         }
     }
 
-    // output game setting
-    fs.writeFileSync(gameSettingFile, JSON.stringify(gameSetting, null, 4), 'utf8');
-
     context.game = gameSetting;
     context.game.width = gameSetting.components.display.width;
     context.game.height = gameSetting.components.display.height;
@@ -226,10 +223,14 @@ exports.generate = function () {
             context.vnts.finishScript(context);
         }
 
+        // output scene setting
         let mainSettingFile = outputMainFolder + "/" + scriptName + ".json";
         fs.writeFileSync(mainSettingFile, JSON.stringify(context.setting, null, 4), 'utf8');
 
     // (loop end)
     }
+
+    // output game setting
+    fs.writeFileSync(gameSettingFile, JSON.stringify(context.game, null, 4), 'utf8');
 
 }

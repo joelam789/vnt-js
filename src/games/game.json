@@ -27,7 +27,8 @@
                 0,
                 0
             ]
-        }
+        },
+        "vars": {}
     },
     "script": true,
     "basics": [
@@ -48,5 +49,7 @@
         "vnt-save",
         "scene1"
     ],
-    "first": "scene1"
+    "first": "scene1",
+    "width": 1280,
+    "height": 720
 }

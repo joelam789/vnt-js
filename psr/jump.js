@@ -8,7 +8,7 @@ exports.parse = function (content, ctx) {
     if (!labelName) return ctx;
     if (ctx.script) {
         let code = "sprite.active = false;";
-        code += 'scene.timeout(50, () => scene.spr("' + labelName + '").active = true);';
+        code += 'scene.sys("vnt").openPlot("' + labelName + '");';
         code += "return;";
         ctx.script += code;
     }

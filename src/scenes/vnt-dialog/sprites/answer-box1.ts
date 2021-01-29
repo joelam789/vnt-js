@@ -7,10 +7,17 @@ export class SceneDialogSpriteAnswerBox1 {
     cursorRelativeX = 30;
     cursorRelativeY = 28;
 
-    open(plotspr, lines: Array<string>, left = 150, top = 40, gap = 80) {
+    open(plotspr, lines: Array<string>, gap = 80) {
         //console.log("showing answers...");
         let scene = plotspr.scene;
+        let itemw = scene.spr("answer-box1").get("display").width;
+        let itemh = scene.spr("answer-box1").get("display").height;
+        let boxh = scene.spr("dialog-box1").get("display").height;
+        let left = (scene.game.get("display").width - itemw) / 2;
+        let top = (scene.game.get("display").height - boxh - gap * lines.length) / 2;
         let chatmsg = scene.sprites["dialog-text1"];
+        this.textRelativeX = itemw / 2;
+        this.textRelativeY = itemh / 2;
         if (chatmsg && chatmsg.custom) {
             chatmsg.custom.more = false;
             chatmsg.custom.history = "";
@@ -134,7 +141,7 @@ export class SceneDialogSpriteAnswerBox1 {
         let chatmsg = spr.scene.sprites["dialog-text1"];
         if (chatmsg) chatmsg.code.onDisplayDone(false);
         let chatbox = spr.scene.sprites["dialog-box1"];
-        if (chatbox) chatbox.code.next();
+        if (chatbox) chatbox.code.next("vnt-answer");
     }
 
     onPointerdown(spr, event) {

@@ -66,7 +66,7 @@ exports.genDialogScript = function(lines, ctx, callback) {
             if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
             if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
             if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
-            script += "]);yield sprite.plot.wait();"
+            script += "]);yield sprite.plot.wait();";
         }
         
         ctx.script += script;

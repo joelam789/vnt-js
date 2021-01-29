@@ -1,0 +1,18 @@
+{
+    "active": false,
+    "script": false,
+    "template": "vnt-bg",
+    "components": {
+        "graphic": {
+            "image": "school_front_night.jpg"
+        },
+        "display": {
+            "x": 640,
+            "y": 360,
+            "scale": {
+                "x": 1,
+                "y": 1
+            }
+        }
+    }
+}

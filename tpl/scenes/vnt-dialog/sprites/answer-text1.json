@@ -11,10 +11,23 @@
             "content": "Your answer 1"
         },
 
+        "mouse":
+		{
+			"enabled": false,
+			"shareable": false,
+			"actions": [""]
+		},
+
         "display":
         {
             "x": 20,
-            "y": 20
+            "y": 20,
+
+            "anchor":
+            {
+                "x": 0.5,
+                "y": 0.5
+            }
         }
     }
 }

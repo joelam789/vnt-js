@@ -7,6 +7,7 @@ c2= Jason Brown
 ## background
 bg1 = school_front_morning.jpg
 bg2 = school_front_afternoon.jpg
+bg3 = school_front_night.jpg
 
 ## image
 miki1 = Miki_Casual_PoseD_Smile.png 0.5 0.5
@@ -18,6 +19,9 @@ bgm1 = easy-lemon.mp3
 ## voice
 v1 = v-01.wav
 v2 = v-02.wav
+
+## variable
+times = 0
 
 ## macro
 show-miki = # show-img miki1 160 520 from-left-right 60 400
@@ -109,10 +113,72 @@ c1
 c2
 嘿嘿，算半个小说迷吧
 
+
+### plot night-talk
+
+# show-bg bg3
+
+<!-- # check-var (times > 0) q1 q2 -->
+
+### plot q1
+
+c1
+Then guess what kind of books I like to read?
+
+# jump try-to-guess
+
+### plot q2
+
+c1
+Guess again!
+
+### plot try-to-guess no-savepoint
+
+## choice-and-branch a1 a2 a3 a4 a5
+historical stories
+science fictions
+horror stories
+fairy tales
+comics
+
+### plot a1
+
+c1
+No, not historical stories
+
+# jump q2
+
+### plot a2
+
+c1
+I like science fictions, but not very much
+
+# jump q2
+
+### plot a3
+
+c1
+I don't like horror stories
+
+# jump q2
+
+### plot a4
+
+c1
+When I was in elementary school, I liked reading fairy tales
+
+# jump q2
+
+### plot a5
+
+c1
+Bingo! I like comic books best!
+
 # hide-img miki2 to-left-right 60 400
 
-?
-那。。。不如今天就先这样。。。？！
+... ...
+
+Okay, this is the ending... for now
 
 (loop)
 

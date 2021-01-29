@@ -9,18 +9,25 @@ export class GamePlot {
             let oldBgName = scene.sys("vnt").getBackgroundImageName();
             let newBgName = "bg1";
             if (oldBgName && oldBgName != newBgName) {
-                scene.spr(oldBgName).get("display").object.alpha = 1.0;
-                tween.get(scene.spr(oldBgName).get("display").object).to({
-                    alpha: 0.0
-                }, 1000).call(() => scene.spr(oldBgName).active = false);
-                scene.spr(newBgName).active = true;
-                scene.spr(newBgName).get("display").object.alpha = 0.0;
-                tween.get(scene.spr(newBgName).get("display").object).to({
-                    alpha: 1.0
-                }, 1000).call(() => sprite.plot.signal());
-                yield sprite.plot.wait();
                 scene.sys("vnt").setBackgroundImageName(newBgName);
-            } else if (!oldBgName) {
+                if (scene.spr(oldBgName).active) {
+                    scene.spr(oldBgName).get("display").object.alpha = 1.0;
+                    tween.get(scene.spr(oldBgName).get("display").object).to({
+                        alpha: 0.0
+                    }, 1000).call(() => scene.spr(oldBgName).active = false);
+                }
+                if (!scene.spr(newBgName).active) {
+                    scene.spr(newBgName).active = true;
+                    scene.spr(newBgName).get("display").object.alpha = 0.0;
+                    tween.get(scene.spr(newBgName).get("display").object).to({
+                        alpha: 1.0
+                    }, 1000).call(() => sprite.plot.signal());
+                    yield sprite.plot.wait();
+                } else {
+                    scene.spr(newBgName).active = true;
+                    scene.spr(newBgName).get("display").object.alpha = 1.0;
+                }
+            } else {
                 scene.spr(newBgName).active = true;
                 scene.spr(newBgName).get("display").object.alpha = 1.0;
                 scene.sys("vnt").setBackgroundImageName(newBgName);
