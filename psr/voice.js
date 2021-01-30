@@ -20,12 +20,12 @@ exports.parse = function (lines, ctx) {
     let nameMap = null;
     if (ctx.vnts) nameMap = ctx.vnts.readKeyValues(lines, 1);
     if (!nameMap) nameMap = new Map();
-    let isFirst = !ctx.sounds || ctx.sounds.size <= 0;
-    if (!ctx.sounds) ctx.sounds = new Map();
+    let isFirst = !ctx.voices || ctx.voices.size <= 0;
+    if (!ctx.voices) ctx.voices = new Map();
     nameMap.forEach((value, key) => {
-        ctx.sounds.set(key, getNameFromUrl(value));
+        ctx.voices.set(key, getNameFromUrl(value));
     });
-    //console.log(ctx.sounds);
+    //console.log(ctx.voices);
     if (!ctx.setting.preload) ctx.setting.preload = {};
     if (!ctx.setting.preload.sounds) ctx.setting.preload.sounds = [];
     nameMap.forEach((value, key) => {

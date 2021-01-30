@@ -4,6 +4,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 	name: string = "vnt";
 	
 	vnt: any = null;
+	vars: any = null;
 	scene: OGE2D.Scene = null;
 	dialog: OGE2D.Sprite = null;
 	savebox: OGE2D.Sprite = null;
@@ -28,6 +29,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		this.scene = scene;
 		this.gamepad = scene.systems["gamepad"];
 		this.keyboard = scene.systems["keyboard"];
+		this.vars = scene.components["vars"];
 		this.vnt = scene.components["vnt"];
 		if (this.vnt) {
 			if (this.vnt.dialog) this.dialog = scene.sprites[this.vnt.dialog];
@@ -188,12 +190,14 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		}
 		if (oldOne.vnt) {
 			this.scene.components["vnt"] = oldOne.vnt;
+			this.vnt = oldOne.vnt;
 		}
 		if (oldOne.gvnt) {
 			this.scene.game.components["vnt"] = oldOne.gvnt;
 		}
 		if (oldOne.vars) {
 			this.scene.components["vars"] = oldOne.vars;
+			this.vars = oldOne.vars;
 		}
 		if (oldOne.gvars) {
 			this.scene.game.components["vars"] = oldOne.gvars;

@@ -62,6 +62,11 @@ function processScriptSection(lines, context = null) {
     return context;
 }
 
+function processScriptLines(lines, context) {
+    if (!lines || !context || !context.script) return;
+    for (let line of lines) context.script += '\n' + line;
+    context.script += '\n';
+}
 
 exports.generate = function () {
 
@@ -167,6 +172,14 @@ exports.generate = function () {
         context.plot = "";
         context.script = "";
 
+        context.backgrounds = null;
+        context.characters = null;
+        context.images = null;
+        context.macros = null;
+        context.musics = null;
+        context.variables = null;
+        context.voices = null;
+
         // get current scene name
         let scriptName = scriptFile.substr(0, scriptFile.length - 3);
         
@@ -192,8 +205,23 @@ exports.generate = function () {
 
         let section = [];
         let commentMode = false;
+        let scriptMode = false;
+        let scriptLines = [];
         for (let line of lines) {
+
             line = line.trim();
+
+            if (scriptMode) {
+                if (line.startsWith('```')) {
+                    scriptMode = false;
+                    processScriptLines(scriptLines, context);
+                    scriptLines = [];
+                } else {
+                    scriptLines.push(line);
+                }
+                continue;
+            }
+
             if (line.startsWith('<!--') && line.endsWith('-->')) continue; // ignore comments
             if (commentMode) {
                 if (line.endsWith('-->')) commentMode = false;
@@ -204,6 +232,12 @@ exports.generate = function () {
                 continue;
             }
             if (line.startsWith('[//]:')) continue; // ignore comments
+
+            if (line.startsWith('```')) {
+                scriptMode = true;
+                scriptLines = [];
+                continue;
+            }
             
             if (line.length <= 0 && section.length > 0) {
                 processScriptSection(section, context);

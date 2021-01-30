@@ -40,6 +40,18 @@ hide all npc images and just show the background image only
 
 ready?
 
+```js
+
+    console.log("test 0");
+
+    for (let i=1; i<=3; i++) {
+        console.log("test ... " + i);
+    }
+
+    if (sprite) console.log("plot - " + sprite.name);
+
+```
+
 let's start ...
 
 <!-- show the npc image from right side -->

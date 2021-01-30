@@ -20,12 +20,12 @@ exports.parse = function (lines, ctx) {
     let nameMap = null;
     if (ctx.vnts) nameMap = ctx.vnts.readKeyValues(lines, 1);
     if (!nameMap) nameMap = new Map();
-    let isFirst = !ctx.vars || ctx.vars.size <= 0;
-    if (!ctx.vars) ctx.vars = new Map();
+    let isFirst = !ctx.variables || ctx.variables.size <= 0;
+    if (!ctx.variables) ctx.variables = new Map();
     nameMap.forEach((value, key) => {
-        ctx.vars.set(key, value);
+        ctx.variables.set(key, value);
     });
-    //console.log(ctx.vars);
+    //console.log(ctx.variables);
     let existingVars = ctx.setting.components["vars"];
     if (!existingVars) existingVars = {};
     let currentVars = {};

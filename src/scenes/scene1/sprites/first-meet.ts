@@ -40,6 +40,15 @@ export class GamePlot {
         }
         dialog.open(sprite, "", ["ready?", ]);
         yield sprite.plot.wait();
+
+        console.log("test 0");
+
+        for (let i = 1; i <= 3; i++) {
+            console.log("test ... " + i);
+        }
+
+        if (sprite) console.log("plot - " + sprite.name);
+
         dialog.open(sprite, "", ["let's start ...", ]);
         yield sprite.plot.wait();
         if (true) {

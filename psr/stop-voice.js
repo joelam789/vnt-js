@@ -7,7 +7,7 @@ exports.parse = function (content, ctx) {
     let target = parts.length > 2 ? parts[2].trim() : "";
     //if (!target) return ctx;
     let param1 = parts.length > 3 ? parts[3].trim() : "";
-    //let fullname = ctx.sounds ? ctx.sounds.get(target) : null;
+    //let fullname = ctx.voices ? ctx.voices.get(target) : null;
     if (ctx.script) {
         let code = "";
         code += 'scene.sys("vnt").stopVoice();';
