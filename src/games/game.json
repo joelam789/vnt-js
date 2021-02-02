@@ -34,7 +34,7 @@
     "basics": [
         "display",
         "tween",
-        "transition",
+        "vtrans",
         "mouse",
         "keyboard",
         "gamepad",
@@ -45,9 +45,9 @@
     "scenes": [
         "vnt-info",
         "vnt-dialog",
-        "vnt-list",
         "vnt-save",
-        "scene1"
+        "scene1",
+        "scene2"
     ],
     "first": "scene1",
     "width": 1280,

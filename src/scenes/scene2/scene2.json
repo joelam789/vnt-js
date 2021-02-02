@@ -1,0 +1,55 @@
+{
+    "ready": true,
+    "components": {
+        "display": {
+            "bgcolor": "#FFFFFF"
+        },
+        "mouse": {
+            "enabled": true,
+            "shareable": true,
+            "actions": [
+                "pointerdown"
+            ]
+        },
+        "event": {
+            "onPointerdown": "vnt.onSceneMapClick"
+        },
+        "vnt": {
+            "bg": "bg1",
+            "bgm": "",
+            "dialog": "vnt-dialog-box1",
+            "savebox": "vnt-save-box1",
+            "loadbox": "load-box1",
+            "flags": [
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        },
+        "vars": {}
+    },
+    "script": false,
+    "preload": {
+        "musics": [],
+        "sounds": [],
+        "images": [
+            "school_corridor_morning.jpg"
+        ],
+        "jsons": []
+    },
+    "scenes": [
+        "vnt-info",
+        "vnt-dialog",
+        "vnt-save"
+    ],
+    "systems": [
+        "motion",
+        "vnt"
+    ],
+    "sprites": [
+        "bg1",
+        "test-indoor1"
+    ]
+}

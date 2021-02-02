@@ -18,5 +18,5 @@
 
 	"script": true,
 	
-	"basics": ["display", "tween", "transition", "mouse", "keyboard", "gamepad", "event", "vnt"]
+	"basics": ["display", "tween", "vtrans", "mouse", "keyboard", "gamepad", "event", "vnt"]
 }

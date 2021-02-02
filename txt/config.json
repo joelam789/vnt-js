@@ -46,8 +46,6 @@
 
 			"event":
 			{
-				"onInit": "onInit",
-				"onActivate": "onActivate",
 				"onPointerdown": "vnt.onSceneMapClick"
 			},
 
@@ -55,8 +53,8 @@
 			{
 				"bg": "",
 				"bgm": "",
-				"dialog": "dialog-box1",
-				"savebox": "save-box1",
+				"dialog": "vnt-dialog-box1",
+				"savebox": "vnt-save-box1",
 				"loadbox": "load-box1",
 				"flags": [0, 0, 0, 0, 0]
 			},
@@ -64,7 +62,7 @@
 			"vars": { }
 		},
 
-		"script": true,
+		"script": false,
 
 		"preload": 
 		{

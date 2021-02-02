@@ -6,6 +6,10 @@ export class GamePlot {
         let dialog = scene.sys("vnt").getDialog().code;
         scene.sys("vnt").snapshot();
         if (true) {
+            let trans: any = sprite.scene.systems["vtrans"];
+            if (trans && trans.isWorking()) yield sprite.plot.wait("fade-in");
+        }
+        if (true) {
             let oldBgName = scene.sys("vnt").getBackgroundImageName();
             let newBgName = "bg1";
             if (oldBgName && oldBgName != newBgName) {

@@ -5,8 +5,8 @@ const version = "0.0.1";
 function genJson(ctx, bgName, bgPath, isFirst, scaleX, scaleY) {
     if (ctx.subpath && ctx.setting) {
         let jsonobj = {
-            //active: isFirst ? true : false, // just activate the first
-            active: false, // no showing by default
+            //active: false, // no showing by default
+            active: isFirst ? true : false, // just activate the first
             script: false, // image should have no script
             template: "vnt-bg",
             components:
@@ -19,6 +19,8 @@ function genJson(ctx, bgName, bgPath, isFirst, scaleX, scaleY) {
                 {
                     x: ctx.game.width / 2,
                     y: ctx.game.height / 2,
+                    visible: true,
+                    alpha: 1.0,
                     scale:
                     {
                         x: 1.0,

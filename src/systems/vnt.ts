@@ -56,6 +56,15 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		this.scene.timeout(50, () => this.scene.spr(plotName).active = true);
 	}
 
+	closeAllPlots() {
+		for (let spr of this.scene.spriteList) {
+			if (!spr.template) continue;
+			if (spr.template == "vnt-plot") {
+				if (spr.active) spr.active = false;
+			}
+		}
+	}
+
 	getDataNamePrefix() {
 		return "vnt-" + this.scene.game.name + "-";
 	}
@@ -105,6 +114,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 			gvnt: JSON.parse(JSON.stringify(this.scene.game.components["vnt"])),
 			vars: JSON.parse(JSON.stringify(this.scene.components["vars"])),
 			gvars: JSON.parse(JSON.stringify(this.scene.game.components["vars"])),
+			scene: this.scene ? this.scene.name : "",
 			plot: "",
 			displays: []
 		};
@@ -150,6 +160,16 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 	restoreSnapshot(oldOne: any) {
 		//console.log(oldOne);
 		if (!this.scene || !oldOne) return;
+		if (oldOne.scene && oldOne.scene != this.scene.name) {
+			this.stopBgm();
+			this.closeAllPlots();
+			this.scene.game.loadScene(oldOne.scene, (sceneObj) => {
+				if (sceneObj) sceneObj.game.scene = sceneObj;
+				let vntx = sceneObj.sys("vnt") as any;
+				if (vntx) vntx.restoreSnapshot(oldOne);
+			});
+			return;
+		}
 		if (this.scene) this.scene.reset();
 		if (oldOne.bgm) this.playBgm(oldOne.bgm);
 		else this.stopBgm();
@@ -232,7 +252,7 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 	clearSavedRecords() {
 		let total = 4;
 		for (let i=1; i<=total; i++) {
-			let prefix = this.getDataNamePrefix() + "save-item" + i;
+			let prefix = this.getDataNamePrefix() + "vnt-save-item" + i;
 			localStorage.setItem(prefix + "-screenshot", "");
 			localStorage.setItem(prefix + "-datetime", "");
 			localStorage.setItem(prefix + "-plot", "");
@@ -246,17 +266,17 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 			if (wantToSave) this.screenshot();
 			for (let i=1; i<=total; i++) {
 				let savedt = localStorage.getItem(this.getDataNamePrefix() 
-													+ "save-item" + i + "-datetime");
+													+ "vnt-save-item" + i + "-datetime");
 				if (!savedt) savedt = "(Empty)";
-				let text1 = this.scene.spr("save-item" + i + "-text1");
+				let text1 = this.scene.spr("vnt-save-item" + i + "-text1");
 				if (text1) text1.get("display").object.style.fontWeight = "normal";
-				let text2 = this.scene.spr("save-item" + i + "-text2");
+				let text2 = this.scene.spr("vnt-save-item" + i + "-text2");
 				if (text2) {
 					text2.get("display").object.style.fontWeight = "normal";
 					text2.get("display").object.text = savedt;
 				}
 			}
-			let title = this.scene.spr("save-title1");
+			let title = this.scene.spr("vnt-save-title1");
 			if (title) title.get("display").object.text = this.loadsave ? "Load Game" : "Save Game";
 		}
 		this.saveitem = null;
@@ -277,8 +297,8 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		if (!item) return;
 		let total = 4;
 		for (let i=1; i<=total; i++) {
-			let text1 = item.scene.spr("save-item" + i + "-text1");
-			let text2 = item.scene.spr("save-item" + i + "-text2");
+			let text1 = item.scene.spr("vnt-save-item" + i + "-text1");
+			let text2 = item.scene.spr("vnt-save-item" + i + "-text2");
 			if (text1) text1.get("display").object.style.fontWeight = "normal";
 			if (text2) text2.get("display").object.style.fontWeight = "normal";
 		}
@@ -353,6 +373,16 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 
 	setBackgroundImageName(imgName: string) {
 		if (this.vnt) this.vnt.bg = imgName;
+	}
+
+	hideAllBgs() {
+		for (let spr of this.scene.spriteList) {
+			if (!spr.template) continue;
+			if (spr.template == "vnt-bg") {
+				if (spr.active) spr.active = false;
+			}
+		}
+		if (this.vnt) this.vnt.bg = "";
 	}
 
 	playBgm(bgmName: string) {

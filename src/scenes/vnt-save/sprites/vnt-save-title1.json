@@ -1,0 +1,35 @@
+{
+    "active": true,
+    "script": false,
+	"template": "vnt-text",
+
+    "components":
+    {
+		"text":
+        {
+            "content": "Save Game",
+            "style":
+            {
+                "fontFamily": "Verdana",
+                "fontSize": 32,
+                "fill": "#ffffff"
+            }
+        },
+		
+        "display":
+        {
+			"parent": "vnt-save-box1",
+			
+			"layer": "ui2",
+			
+            "x": 30,
+            "y": 380,
+			
+			"anchor":
+            {
+                "x": 0,
+                "y": 0
+            }
+        }
+    }
+}

@@ -1,6 +1,6 @@
 {
     "script": false,
-    "sprites": ["dialog-box1","dialog-speaker1","dialog-text1","dialog-cursor1", 
-                "answer-box1","answer-text1","answer-cursor1",
-                "button-save1", "button-load1"]
+    "sprites": ["vnt-dialog-box1","vnt-dialog-speaker1","vnt-dialog-text1","vnt-dialog-cursor1", 
+                "vnt-answer-box1","vnt-answer-text1","vnt-answer-cursor1",
+                "vnt-button-save1", "vnt-button-load1"]
 }

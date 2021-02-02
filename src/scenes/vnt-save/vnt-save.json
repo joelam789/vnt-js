@@ -1,12 +1,12 @@
 {
     "script": false,
-    "sprites": ["save-box1",
-                "save-pv-screen1", "save-title1",
-				"save-item1", "save-item2", "save-item3", "save-item4",
-				"save-item1-text1", "save-item1-text2",
-				"save-item2-text1", "save-item2-text2",
-				"save-item3-text1", "save-item3-text2",
-				"save-item4-text1", "save-item4-text2",
-				"save-ok1", "save-ok-text1", "save-cancel1", "save-cancel-text1"
+    "sprites": ["vnt-save-box1",
+                "vnt-save-pv-screen1", "vnt-save-title1",
+				"vnt-save-item1", "vnt-save-item2", "vnt-save-item3", "vnt-save-item4",
+				"vnt-save-item1-text1", "vnt-save-item1-text2",
+				"vnt-save-item2-text1", "vnt-save-item2-text2",
+				"vnt-save-item3-text1", "vnt-save-item3-text2",
+				"vnt-save-item4-text1", "vnt-save-item4-text2",
+				"vnt-save-ok1", "vnt-save-ok-text1", "vnt-save-cancel1", "vnt-save-cancel-text1"
                 ]
 }

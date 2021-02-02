@@ -6,37 +6,16 @@
             "bgcolor": "#000000"
         },
 
-        "mouse":
-        {
-            "enabled": true,
-            "shareable": true,
-            "actions": ["pointerdown"]
-        },
-
-        "event":
-        {
-            "onInit": "onInit",
-            "onActivate": "onActivate",
-            "onPointerdown": "onPointerdown"
-        },
-
         "vnt":
         {
 			"bg": "",
             "bgm": "",
-            "dialog": "dialog-box1",
+            "dialog": "vnt-dialog-box1",
             "flags": [0, 0, 0, 0, 0]
         }
     },
 
-    "script": true,
-
-    "preload": 
-    {
-        "musics": [],
-        "sounds": [],
-        "jsons":  []
-    },
+    "script": false,
 
 	"scenes": ["vnt-info", "vnt-dialog"],
 	"systems": ["motion", "vnt"],

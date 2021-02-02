@@ -32,6 +32,12 @@ function genScriptStart(ctx, skipSavepoint = false) {
                             let tween = scene.sys("tween");
                             let dialog = scene.sys("vnt").getDialog().code;`;
         if (!skipSavepoint) jscode += 'scene.sys("vnt").snapshot();';
+        if (!ctx.script) { // if it's the first plot ...
+            jscode += 'if (true) {';
+            jscode += 'let trans: any = sprite.scene.systems["vtrans"];';
+            jscode += 'if (trans && trans.isWorking()) yield sprite.plot.wait("fade-in");';
+            jscode += "}";
+        }
         ctx.script = jscode;
     }
     return ctx;

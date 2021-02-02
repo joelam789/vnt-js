@@ -247,11 +247,11 @@ exports.generate = function () {
             }
         }
 
-        //if (context.bg) {
-        //    if (context.setting.components.vnt) {
-        //        context.setting.components.vnt.bg = context.bg;
-        //    }
-        //}
+        if (context.bg) {
+            if (context.setting.components.vnt) {
+                context.setting.components.vnt.bg = context.bg;
+            }
+        }
 
         if (context.plot && context.vnts) {
             context.vnts.finishScript(context);

@@ -23,11 +23,16 @@ export class GamePlot {
         yield sprite.plot.wait();
         dialog.open(sprite, "", ["Okay, this is the ending... for now", ]);
         yield sprite.plot.wait();
-        dialog.open(sprite, "", ["(loop)", ]);
+        dialog.open(sprite, "", ["(next scene)", ]);
         yield sprite.plot.wait();
         sprite.active = false;
-        scene.sys("vnt").openPlot("first-meet");
-        return;
+        if (true) {
+            let trans: any = sprite.scene.systems["vtrans"];
+            if (trans && !trans.isWorking()) {
+                trans.callScene("scene2");
+                return;
+            }
+        }
         sprite.active = false;
     }
 }

@@ -1,5 +1,5 @@
 {
-    "active": false,
+    "active": true,
     "script": false,
     "template": "vnt-bg",
     "components": {
@@ -9,6 +9,8 @@
         "display": {
             "x": 640,
             "y": 360,
+            "visible": true,
+            "alpha": 1,
             "scale": {
                 "x": 1,
                 "y": 1

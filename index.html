@@ -48,7 +48,7 @@
             window.onload = function() {
                 
                 SystemJS.import('oge2d-main').then(function(main) {
-                    main.app.load( { game: "game", container: "game", systems: ["systems/vnt"] },
+                    main.app.load( { game: "game", container: "game", systems: ["systems/vnt", "systems/vtrans"] },
                     function(game) {
                         document.getElementById('loading').style.display = 'none';
                         document.getElementById('game').style.display = 'block';
