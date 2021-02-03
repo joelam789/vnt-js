@@ -1,6 +1,6 @@
 {
-	"active": true,
-	"script": false,
+	"active": false,
+	"script": true,
 	"template": "vnt-bar",
 
 	"components":
@@ -16,12 +16,23 @@
 			{
 				"x": 420,
 				"y": 30
+			},
+			
+			"anchor":
+			{
+				"x": 0,
+				"y": 0.5
 			}
 		},
 
 		"custom-display":
 		{
-			"color": "#00ff00"
-		}
+			"color": "#14debe"
+		},
+		
+		"event":
+        {
+            "onActivate": "onActivate"
+        }
 	}
 }

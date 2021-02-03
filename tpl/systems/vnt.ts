@@ -65,6 +65,41 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 		}
 	}
 
+	setToCenter(...sprs) {
+		if (!this.scene) return;
+		for (let spr of sprs) {
+			spr.get("display").object.x = this.scene.game.width / 2;
+			spr.get("display").object.y = this.scene.game.height / 2;
+		}
+	}
+
+	openPreload(nextPlotName: string, preloadScenes: Array<string>) {
+		if (!this.scene) return;
+		let bg1 = this.scene.spr("vnt-preload-bg1");
+		let bar1 = this.scene.spr("vnt-preload-bar1");
+		let num1 = this.scene.spr("vnt-preload-num1");
+		if (bg1 && bar1 && num1) {
+			this.setToCenter(bg1, bar1, num1);
+			bar1.code.nextPlotName = nextPlotName;
+			bar1.code.preloadScenes = preloadScenes;
+			bg1.active = true;
+			num1.active = true;
+			bar1.active = true;
+		}
+	}
+
+	closePreload() {
+		if (!this.scene) return;
+		let bg1 = this.scene.spr("vnt-preload-bg1");
+		let bar1 = this.scene.spr("vnt-preload-bar1");
+		let num1 = this.scene.spr("vnt-preload-num1");
+		if (bg1 && bar1 && num1) {
+			bg1.active = false;
+			num1.active = false;
+			bar1.active = false;
+		}
+	}
+
 	getDataNamePrefix() {
 		return "vnt-" + this.scene.game.name + "-";
 	}

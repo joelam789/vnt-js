@@ -1,0 +1,20 @@
+{
+    "active": true,
+    "script": false,
+    "template": "vnt-bg",
+    "components": {
+        "graphic": {
+            "image": "pp1.jpg"
+        },
+        "display": {
+            "x": 640,
+            "y": 360,
+            "visible": true,
+            "alpha": 1,
+            "scale": {
+                "x": 1,
+                "y": 1
+            }
+        }
+    }
+}

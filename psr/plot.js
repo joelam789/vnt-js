@@ -30,7 +30,7 @@ function genScriptStart(ctx, skipSavepoint = false) {
                             let game = sprite.game;
                             let scene = sprite.scene;
                             let tween = scene.sys("tween");
-                            let dialog = scene.sys("vnt").getDialog().code;`;
+                            let dialog = scene.sys("vnt").getDialog() ? scene.sys("vnt").getDialog().code : null;`;
         if (!skipSavepoint) jscode += 'scene.sys("vnt").snapshot();';
         if (!ctx.script) { // if it's the first plot ...
             jscode += 'if (true) {';
@@ -72,6 +72,6 @@ exports.parse = function (content, ctx) {
     if (lastLabel) genScriptEnd(ctx, labelName);
     ctx.plot = labelName;
     genJson(ctx);
-    genScriptStart(ctx, param1 && param1 == "no-savepoint");
+    genScriptStart(ctx, param1 && param1.startsWith("no-save"));
     return ctx;
 }

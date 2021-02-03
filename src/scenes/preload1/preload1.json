@@ -35,14 +35,15 @@
         "musics": [],
         "sounds": [],
         "images": [
-            "school_corridor_morning.jpg"
+            "pp1.jpg"
         ],
         "jsons": []
     },
     "scenes": [
         "vnt-info",
         "vnt-dialog",
-        "vnt-save"
+        "vnt-save",
+        "vnt-preload"
     ],
     "systems": [
         "motion",
@@ -50,6 +51,8 @@
     ],
     "sprites": [
         "bg1",
-        "test-indoor1"
+        "first-preload",
+        "finish-preloading",
+        "common-end"
     ]
 }

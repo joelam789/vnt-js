@@ -1,5 +1,5 @@
 {
-    "ready": true,
+    "ready": false,
     "components": {
         "display": {
             "bgcolor": "#FFFFFF"

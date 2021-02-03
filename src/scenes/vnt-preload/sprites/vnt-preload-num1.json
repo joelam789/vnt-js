@@ -1,5 +1,5 @@
 {
-	"active": true,
+	"active": false,
 	"script": false,
 	"template": "vnt-label",
 
@@ -10,7 +10,13 @@
 			"layer": "ui",
 			
 			"x": 500,
-			"y": 150
+			"y": 150,
+			
+			"anchor":
+			{
+				"x": 0.5,
+				"y": 0.5
+			}
 		},
 
 		"text":

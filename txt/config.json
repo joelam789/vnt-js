@@ -22,13 +22,13 @@
 
 		"script": true,
 
-		"scenes": ["vnt-info", "vnt-dialog", "vnt-list", "vnt-save", "scene1"],
-		"first": "scene1"
+		"scenes": ["vnt-preload", "preload1"],
+		"first": "preload1"
 	},
 
 	"scene":
 	{
-		"ready": true,
+		"ready": false,
 
 		"components":
 		{
