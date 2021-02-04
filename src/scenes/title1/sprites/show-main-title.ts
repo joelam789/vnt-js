@@ -4,11 +4,6 @@ export class GamePlot {
         let scene = sprite.scene;
         let tween = scene.sys("tween");
         let dialog = scene.sys("vnt").getDialog() ? scene.sys("vnt").getDialog().code : null;
-        scene.sys("vnt").snapshot();
-        if (true) {
-            let trans: any = sprite.scene.systems["vtrans"];
-            if (trans && trans.isWorking()) yield sprite.plot.wait("fade-in");
-        }
         if (true) {
             let oldBgName = scene.sys("vnt").getBackgroundImageName();
             let newBgName = "bg1";
@@ -37,11 +32,19 @@ export class GamePlot {
                 scene.sys("vnt").setBackgroundImageName(newBgName);
             }
         }
-        scene.sys("vnt").openPreload("finish-preloading", ["vnt-info", "vnt-dialog", "vnt-save", "title1", "scene1", "scene2", ]);
+        if (true) {
+            let btns = ["btn1", "btn2", ];
+            for (let btn of btns) {
+                let btnSpr = scene.spr(btn);
+                let txtSpr = scene.spr(btn + "-text");
+                if (btnSpr) btnSpr.active = true;
+                if (txtSpr) txtSpr.active = true;
+            }
+        }
         sprite.active = false;
         scene.sys("vnt").openPlot("common-end");
         return;
         sprite.active = false;
-        scene.spr("finish-preloading").active = true;
+        scene.spr("load-old-ones").active = true;
     }
 }

@@ -1,0 +1,27 @@
+{
+    "active": false,
+    "script": false,
+    "template": "vnt-my-text",
+    "components": {
+        "text": {
+            "content": "Load Games"
+        },
+        "display": {
+            "parent": "btn2",
+            "layer": "ui2",
+            "x": 90,
+            "y": 30,
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        "mouse": {
+            "enabled": true,
+            "shareable": false,
+            "actions": [
+                ""
+            ]
+        }
+    }
+}

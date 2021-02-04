@@ -321,10 +321,14 @@ export class VisualNovelTemplate implements OGE2D.Updater {
 	}
 
 	showSaveBox(visible: boolean = true) {
+		if (!this.scene || !this.savebox) return;
+		if (visible && this.savebox.active) return;
 		this.showSaveLoad(true, visible);
 	}
 	showLoadBox(visible: boolean = true) {
 		//if (this.loadbox) this.loadbox.active = visible;
+		if (!this.scene || !this.savebox) return;
+		if (visible && this.savebox.active) return;
 		this.showSaveLoad(false, visible);
 	}
 

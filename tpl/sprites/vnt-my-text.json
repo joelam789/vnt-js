@@ -1,0 +1,24 @@
+{
+    "script": false,
+
+    "components":
+    {
+        "text":
+        {
+            "content": "?",
+            "style":
+            {
+                "fontFamily": "Comic Sans MS",
+                "fontSize": 16,
+                "fill": "#ffffff"
+            }
+        },
+
+        "display":
+        {
+            "layer": "txt"
+        }
+
+    }
+
+}

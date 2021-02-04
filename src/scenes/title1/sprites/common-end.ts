@@ -4,7 +4,6 @@ export class GamePlot {
         let scene = sprite.scene;
         let tween = scene.sys("tween");
         let dialog = scene.sys("vnt").getDialog() ? scene.sys("vnt").getDialog().code : null;
-        scene.sys("vnt").snapshot();
         sprite.active = false;
     }
 }

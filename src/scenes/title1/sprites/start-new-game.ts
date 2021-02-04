@@ -9,7 +9,7 @@ export class GamePlot {
         if (true) {
             let trans: any = sprite.scene.systems["vtrans"];
             if (trans && !trans.isWorking()) {
-                trans.callScene("title1");
+                trans.callScene("scene1");
                 return;
             }
         }

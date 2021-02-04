@@ -22,7 +22,7 @@ function genJson(ctx) {
     return ctx;
 }
 
-function genScriptStart(ctx, skipSavepoint = false) {
+function genScriptStart(ctx, skipSavepoint = false, skipWaiting4fading = false) {
     if (ctx.plot && ctx.subpath) {
 
         let jscode = `export class GamePlot {
@@ -33,10 +33,12 @@ function genScriptStart(ctx, skipSavepoint = false) {
                             let dialog = scene.sys("vnt").getDialog() ? scene.sys("vnt").getDialog().code : null;`;
         if (!skipSavepoint) jscode += 'scene.sys("vnt").snapshot();';
         if (!ctx.script) { // if it's the first plot ...
-            jscode += 'if (true) {';
-            jscode += 'let trans: any = sprite.scene.systems["vtrans"];';
-            jscode += 'if (trans && trans.isWorking()) yield sprite.plot.wait("fade-in");';
-            jscode += "}";
+            if (!skipWaiting4fading) {
+                jscode += 'if (true) {';
+                jscode += 'let trans: any = sprite.scene.systems["vtrans"];';
+                jscode += 'if (trans && trans.isWorking()) yield sprite.plot.wait("fade-in");';
+                jscode += "}";
+            }
         }
         ctx.script = jscode;
     }
@@ -67,11 +69,16 @@ exports.parse = function (content, ctx) {
     let parts = line.split(' ');
     let labelName = parts.length > 2 ? parts[2].trim() : "";
     let param1 = parts.length > 3 ? parts[3].trim() : "";
+    let param2 = parts.length > 4 ? parts[4].trim() : "";
+    let skipSavepoint = (param1 && param1.startsWith("no-save"))
+                        || (param2 && param2.startsWith("no-save"));
+    let skipWaiting4fading = (param1 && param1.startsWith("no-wait"))
+                            || (param2 && param2.startsWith("no-wait"));
     if (!labelName) return ctx;
     let lastLabel = ctx.plot ? ctx.plot : "";
     if (lastLabel) genScriptEnd(ctx, labelName);
     ctx.plot = labelName;
     genJson(ctx);
-    genScriptStart(ctx, param1 && param1.startsWith("no-save"));
+    genScriptStart(ctx, skipSavepoint, skipWaiting4fading);
     return ctx;
 }
