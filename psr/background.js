@@ -23,14 +23,12 @@ function genJson(ctx, bgName, bgPath, isFirst, scaleX, scaleY) {
                     alpha: 1.0,
                     scale:
                     {
-                        x: 1.0,
-                        y: 1.0
+                        x: scaleX ? parseFloat(scaleX) : 1.0,
+                        y: scaleY ? parseFloat(scaleY) : 1.0
                     }
                 }
             }
         };
-        if (scaleX) jsonobj.components.display.scale.x = parseFloat(scaleX);
-        if (scaleY) jsonobj.components.display.scale.y = parseFloat(scaleY);
         let jsonstr = JSON.stringify(jsonobj, null, 4);
         let jsonfile = ctx.subpath + "/" + bgName + ".json";
         fs.writeFileSync(jsonfile, jsonstr, 'utf8');

@@ -20,14 +20,12 @@ function genJson(ctx, imgName, imgPath, scaleX, scaleY) {
                     y: ctx.game.height / 2,
                     scale:
                     {
-                        x: 1.0,
-                        y: 1.0
+                        x: scaleX ? parseFloat(scaleX) : 1.0,
+                        y: scaleY ? parseFloat(scaleY) : 1.0
                     }
                 }
             }
         };
-        if (scaleX) jsonobj.components.display.scale.x = parseFloat(scaleX);
-        if (scaleY) jsonobj.components.display.scale.y = parseFloat(scaleY);
         let jsonstr = JSON.stringify(jsonobj, null, 4);
         let jsonfile = ctx.subpath + "/" + imgName + ".json";
         fs.writeFileSync(jsonfile, jsonstr, 'utf8');

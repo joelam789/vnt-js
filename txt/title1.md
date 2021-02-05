@@ -2,10 +2,18 @@
 ## background
 bg1 = mcwp.png
 
+<!--
 ## button btn1
 tpl = vnt-box vnt-text
 rect = 200 320 180 60
 text = New Start
+click = start-new-game
+-->
+
+## image-button btn1
+url = start-button.png
+pos = 300 330
+scale = 0.3 0.3
 click = start-new-game
 
 ## button btn2

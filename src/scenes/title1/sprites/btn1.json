@@ -1,13 +1,18 @@
 {
     "active": false,
     "script": true,
-    "template": "vnt-box",
+    "template": "vnt-img",
     "components": {
+        "graphic": {
+            "image": "start-button.png"
+        },
         "display": {
-            "x": 200,
-            "y": 320,
-            "width": 180,
-            "height": 60
+            "x": 300,
+            "y": 330,
+            "scale": {
+                "x": 0.3,
+                "y": 0.3
+            }
         },
         "mouse": {
             "enabled": true,
