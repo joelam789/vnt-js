@@ -3,7 +3,9 @@ const fs = require("fs");
 const del = require('del');
 const gulp = require('gulp');
 const sourcemap = require('gulp-sourcemaps');
-const webserver = require('gulp-webserver');
+
+//const webserver = require('gulp-webserver');
+const webserver = require('gulp-connect');
 const archiver = require('archiver');
 
 const Builder = require('systemjs-builder');
@@ -255,6 +257,7 @@ gulp.task("copy-and-pack", gulp.series(
              'pack')
 );
 
+/*
 gulp.task('start', function() {
     gulp.src('./')
     .pipe(webserver({
@@ -262,6 +265,16 @@ gulp.task('start', function() {
         port: 9090,
         //open: 'http://localhost:9090/dist'
     }));
+});
+*/
+
+gulp.task('start', async () => {
+    webserver.server({
+        name: 'WebServer',
+        root: '',
+        port: 9090,
+        livereload: true
+    });
 });
 
 gulp.task('default', gulp.series('build-and-watch'));
