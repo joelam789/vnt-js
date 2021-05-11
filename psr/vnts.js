@@ -41,6 +41,75 @@ exports.finishScript = function (ctx, nextOne = null) {
     return ctx;
 }
 
+processNormalLine = function (npc, line, last, ctx) {
+    if (ctx && ctx.script) {
+        let script = "";
+        if (last) {
+            script += 'dialog.open(sprite, "' + npc + '", [' ;
+            script += '"' + line + '"';
+            script += "]);yield sprite.plot.wait();";
+        } else {
+            script += 'dialog.open(sprite, "' + npc + '", [' ;
+            script += '"' + line + '"';
+            script += "], 50, true);yield sprite.plot.wait();";
+        }
+        ctx.script += script;
+    }
+}
+
+processStyleLine = function (npc, line, last, ctx) {
+    //console.log("processStyleLine - " + line);
+    if (ctx && ctx.script) {
+        let script = "";
+        let parts = line.split("</style>");
+        for (let i=0; i<parts.length; i++) {
+            let part = parts[i];
+            let isLastPart = i == parts.length - 1 && last;
+            let pos = part.indexOf("<style");
+            if (pos > 0) {
+                let half = part.substring(0, pos);
+                processNormalLine(npc, half, false, ctx);
+                let lastPart = part.substring(pos);
+                processStyleLine(npc, lastPart, isLastPart, ctx);
+            } else if (pos == 0) {
+                let posWords = part.indexOf(">");
+                if (posWords <= 0) {
+                    processNormalLine(npc, part, isLastPart, ctx);
+                } else {
+                    let color = '"#FFFFFF"';
+                    let weigth = '"normal"';
+                    let paramValue = "";
+                    let paramPos = part.indexOf("=");
+                    if (paramPos > 0) {
+                        paramValue = part.substring(paramPos + 1, posWords).trim();
+                        if (paramValue && ctx.styles) {
+                            let value = ctx.styles.get(paramValue);
+                            if (value) {
+                                let settingParts = value.split(' ');
+                                if (settingParts.length >= 1) color = '"' + settingParts[0] + '"';
+                                if (settingParts.length >= 2) weigth = '"' + settingParts[1] + '"';
+                            }
+                        } 
+                    }
+                    let words = part.substring(posWords + 1);
+                    if (isLastPart) {
+                        script += 'dialog.open(sprite, "' + npc + '", [' ;
+                        script += '"' + words + '"';
+                        script += "], 50, false, " + color + ", "+ weigth +");yield sprite.plot.wait();";
+                    } else {
+                        script += 'dialog.open(sprite, "' + npc + '", [' ;
+                        script += '"' + words + '"';
+                        script += "], 50, true, " + color + ", "+ weigth +");yield sprite.plot.wait();";
+                    }
+                    ctx.script += script;
+                }
+            } else {
+                processNormalLine(npc, part, isLastPart, ctx);
+            }
+        }
+    }
+}
+
 exports.genDialogScript = function(lines, ctx, callback) {
     if (ctx.script) {
         let npc = "", script = "";
@@ -61,18 +130,52 @@ exports.genDialogScript = function(lines, ctx, callback) {
         //for (let line of words) script += '"' + line.replaceAll('"', '\\"') + '",';
         //script += "]);yield sprite.plot.wait();"
         while (words.length > 0) {
-            script += 'dialog.open(sprite, "' + npc + '", [';
-            script += '"' + words.shift().replaceAll('"', '\\"') + '",';
-            if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
-            if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
-            if (words.length > 0) script += '"' + words.shift().replaceAll('"', '\\"') + '",';
-            script += "]);yield sprite.plot.wait();";
+
+            let line1 = words.shift().replaceAll('"', '\\"');
+            let line2 = words.length > 0 ? words.shift().replaceAll('"', '\\"') : "";
+            let line3 = words.length > 0 ? words.shift().replaceAll('"', '\\"') : "";
+            let line4 = words.length > 0 ? words.shift().replaceAll('"', '\\"') : "";
+
+            if ((line1.indexOf("<style") < 0 || line1.indexOf("</style>") < 0)
+                && (line2.length <= 0 || line2.indexOf("<style") < 0 || line2.indexOf("</style>") < 0)
+                && (line3.length <= 0 || line3.indexOf("<style") < 0 || line3.indexOf("</style>") < 0)
+                && (line4.length <= 0 || line4.indexOf("<style") < 0 || line4.indexOf("</style>") < 0)) {
+                //console.log("here???", line1);
+                script += 'dialog.open(sprite, "' + npc + '", [';
+                script += '"' + line1 + '",';
+                if (line2.length > 0) script += '"' + line2 + '",';
+                if (line3.length > 0) script += '"' + line3 + '",';
+                if (line4.length > 0) script += '"' + line4 + '",';
+                script += "]);yield sprite.plot.wait();";
+                ctx.script += script;
+            } else {
+                //console.log("here");
+                let isLastLine = line2.length <= 0 && line3.length <= 0 && line4.length <= 0;
+                if (line1.indexOf("<style") >= 0 && line1.indexOf("</style>") > 0) processStyleLine(npc, line1, isLastLine, ctx);
+                else processNormalLine(npc, line1, isLastLine, ctx);
+                if (line2.length > 0) {
+                    isLastLine = line3.length <= 0 && line4.length <= 0;
+                    if (line2.indexOf("<style") >= 0 && line2.indexOf("</style>") > 0) processStyleLine(npc, line2, isLastLine, ctx);
+                    else processNormalLine(npc, line2, isLastLine, ctx);
+                }
+                if (line3.length > 0) {
+                    isLastLine = line4.length <= 0;
+                    if (line3.indexOf("<style") >= 0 && line3.indexOf("</style>") > 0) processStyleLine(npc, line3, isLastLine, ctx);
+                    else processNormalLine(npc, line3, isLastLine, ctx);
+                }
+                if (line4.length > 0) {
+                    isLastLine = true;
+                    if (line4.indexOf("<style") >= 0 && line4.indexOf("</style>") > 0) processStyleLine(npc, line4, isLastLine, ctx);
+                    else processNormalLine(npc, line4, isLastLine, ctx);
+                }
+            }
         }
         
-        ctx.script += script;
     }
     return ctx;
 }
+
+
 
 exports.processCommandLine = function (line, context) {
     //console.log("line", line);

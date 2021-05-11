@@ -13,6 +13,10 @@ bg3 = school_front_night.jpg
 miki1 = Miki_Casual_PoseD_Smile.png 0.5 0.5
 miki2 = Miki_PoseA_Casual_Smile.png 0.5 0.5
 
+## style
+red = #FF0000 bold
+blue = #0000FF
+
 ## music
 bgm1 = easy-lemon.mp3
 
@@ -75,7 +79,7 @@ c2
 So it's the end ... ?
 
 ?
-Or still needs something more ... ?
+Or still needs something <style name=red>more</style> ... ?
 
 ... ...
 

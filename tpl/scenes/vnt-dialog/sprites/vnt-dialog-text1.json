@@ -2,7 +2,7 @@
     "active": false,
     "script": true,
 	"template": "vnt-text",
-    "count": 8,
+    "count": 16,
 
     "components":
     {

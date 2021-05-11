@@ -139,7 +139,7 @@ export class SceneDialogSpriteAnswerBox1 {
         this.selected = flag;
         this.close();
         let chatmsg = spr.scene.sprites["vnt-dialog-text1"];
-        if (chatmsg) chatmsg.code.onDisplayDone(false);
+        if (chatmsg) chatmsg.code.onDisplayDone(false, false);
         let chatbox = spr.scene.sprites["vnt-dialog-box1"];
         if (chatbox) chatbox.code.next("vnt-answer");
     }

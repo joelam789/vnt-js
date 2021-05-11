@@ -87,7 +87,11 @@ export class GamePlot {
         }
         dialog.open(sprite, "???", ["So it's the end ... ?", ]);
         yield sprite.plot.wait();
-        dialog.open(sprite, "???", ["Or still needs something more ... ?", ]);
+        dialog.open(sprite, "???", ["Or still needs something "], 50, true);
+        yield sprite.plot.wait();
+        dialog.open(sprite, "???", ["more"], 50, true, "#FF0000", "bold");
+        yield sprite.plot.wait();
+        dialog.open(sprite, "???", [" ... ?"]);
         yield sprite.plot.wait();
         dialog.open(sprite, "", ["... ...", ]);
         yield sprite.plot.wait();

@@ -2,7 +2,8 @@ export class SceneDialogSpriteDialogBox1 {
 
     minHeight = 60;
 
-    open(plotspr: any, speaker: string, words: Array<string>, speed: number = 50, more: boolean = false) {
+    open(plotspr: any, speaker: string, words: Array<string>, speed: number = 50, more: boolean = false, 
+        color: string = "#FFFFFF", weight: string = "normal") {
         let game = plotspr.game;
         let tween = plotspr.scene.sys("tween");
         let chatbox = plotspr.scene.sprites["vnt-dialog-box1"];
@@ -34,11 +35,13 @@ export class SceneDialogSpriteDialogBox1 {
 
             if (chatguy) chatguy.get("display").object.text = speaker ? speaker : "";
 
-            let history = chatmsg.custom.history ? chatmsg.custom.history : "";
-            chatmsg.custom.current = words.join("\n");
-            chatmsg.get("text").content = history + chatmsg.custom.current;
-            chatmsg.get("display").object.text = history;
-            chatmsg.custom.content = history + chatmsg.custom.current;
+            //let history = chatmsg.custom.history ? chatmsg.custom.history : "";
+            //chatmsg.custom.current = words.join("\n");
+            //chatmsg.get("text").content = history + chatmsg.custom.current;
+            //chatmsg.get("display").object.text = history;
+            //chatmsg.custom.content = history + chatmsg.custom.current;
+
+            chatmsg.code.prepareCurrent(words, more, color, weight);
 
             let canShowAnima = !showing && tween && display && chatbox.custom.posY 
                                 && chatbox.custom.maxH && chatbox.custom.minH;
@@ -48,7 +51,7 @@ export class SceneDialogSpriteDialogBox1 {
             }
 
             chatbox.active = true;
-            chatmsg.active = chatmsg.custom.history ? true : false;
+            chatmsg.active = chatmsg.code.history.length > 0 ? true : false;
             if (chatguy) chatguy.active = chatmsg.active;
             cursor.active = false;
 
@@ -83,9 +86,10 @@ export class SceneDialogSpriteDialogBox1 {
             }
         } else if (chatstate == "open") {
             let chatmsg = spr.scene.sprites["vnt-dialog-text1"];
-            if (chatmsg && chatmsg.custom && chatmsg.custom.content) {
-                chatmsg.get("display").object.text = chatmsg.custom.content;
-            }
+            //if (chatmsg && chatmsg.custom && chatmsg.custom.content) {
+            //    chatmsg.get("display").object.text = chatmsg.custom.content;
+            //}
+            if (chatmsg) chatmsg.code.enableCurrent();
         }
     }
 
@@ -101,6 +105,9 @@ export class SceneDialogSpriteDialogBox1 {
             chatmsg.active = false;
             if (chatguy) chatguy.active = chatmsg.active;
             cursor.active = false;
+
+            chatmsg.code.disableCurrent();
+            chatmsg.code.clearHistory();
 
             let showing = chatbox.active;
             let display = chatbox.get("display").object;
@@ -146,6 +153,12 @@ export class SceneDialogSpriteDialogBox1 {
         let cursor = spr.scene.spr("vnt-answer-cursor1");
         let answer1 = spr.scene.spr("vnt-answer-box1").code;
         if (answer1 && cursor) answer1.selectAnswer(cursor);
+    }
+
+    clearHistory() {
+        let spr = (this as any).owner;
+        let chatmsg = spr.scene.spr("vnt-dialog-text1").code;
+        if (chatmsg) chatmsg.clearHistory();
     }
 
     answer(spr, options: Array<string>, gap = 80) {
