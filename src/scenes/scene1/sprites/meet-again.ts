@@ -76,8 +76,6 @@ export class GamePlot {
         yield sprite.plot.wait();
         dialog.open(sprite, "Jason Brown", ["一些武侠小说呀，比如", "《射雕英雄传》、《神雕侠侣》、", "《书剑恩仇录》、《笑傲江湖》、", "《七剑下天山》、《白发魔女传》。。。", ]);
         yield sprite.plot.wait();
-        dialog.open(sprite, "Jason Brown", ["一些武侠小说呀，比如", "《射雕英雄传》、《神雕侠侣》、", "《书剑恩仇录》、《笑傲江湖》、", "《七剑下天山》、《白发魔女传》。。。", ]);
-        yield sprite.plot.wait();
         dialog.open(sprite, "Jason Brown", ["还有一些科幻小说，比如", "《八十天环游世界》、《时间机器》、", "《科学怪人》、《太空漫游2001》、", "《指环王》、《哈利波特》...... 等等", ]);
         yield sprite.plot.wait();
         dialog.open(sprite, "Cindy Lam", ["那你读的书还真不少哟！", ]);

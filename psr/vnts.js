@@ -131,6 +131,8 @@ exports.genDialogScript = function(lines, ctx, callback) {
         //script += "]);yield sprite.plot.wait();"
         while (words.length > 0) {
 
+            //console.log(words.length);
+
             let line1 = words.shift().replaceAll('"', '\\"');
             let line2 = words.length > 0 ? words.shift().replaceAll('"', '\\"') : "";
             let line3 = words.length > 0 ? words.shift().replaceAll('"', '\\"') : "";
@@ -141,7 +143,7 @@ exports.genDialogScript = function(lines, ctx, callback) {
                 && (line3.length <= 0 || line3.indexOf("<style") < 0 || line3.indexOf("</style>") < 0)
                 && (line4.length <= 0 || line4.indexOf("<style") < 0 || line4.indexOf("</style>") < 0)) {
                 //console.log("here???", line1);
-                script += 'dialog.open(sprite, "' + npc + '", [';
+                script = 'dialog.open(sprite, "' + npc + '", [';
                 script += '"' + line1 + '",';
                 if (line2.length > 0) script += '"' + line2 + '",';
                 if (line3.length > 0) script += '"' + line3 + '",';
@@ -172,6 +174,7 @@ exports.genDialogScript = function(lines, ctx, callback) {
         }
         
     }
+
     return ctx;
 }
 

@@ -81,7 +81,7 @@ exports.generate = function () {
         return element.match(/.*\.(js)/ig);
     });
     for (let item of parserScriptFiles) {
-        parsers.set(item.substr(0, item.length - 3), require(parserFolder + "/" + item));
+        parsers.set(item.substring(0, item.length - 3), require(parserFolder + "/" + item));
     }
 
     context.parsers = parsers;
@@ -138,7 +138,7 @@ exports.generate = function () {
         return element.match(/.*\.(md)/ig);
     });
     let scriptNames = [];
-    for (let item of scriptFiles) scriptNames.push(item.substr(0, item.length - 3));
+    for (let item of scriptFiles) scriptNames.push(item.substring(0, item.length - 3));
     let sceneFolders = fs.readdirSync( srcSceneFolder );
 
     // update scene list in game setting
@@ -181,7 +181,7 @@ exports.generate = function () {
         context.voices = null;
 
         // get current scene name
-        let scriptName = scriptFile.substr(0, scriptFile.length - 3);
+        let scriptName = scriptFile.substring(0, scriptFile.length - 3);
         
         // create following folders and files if not exist
         // ./src/scenes/scene1/
